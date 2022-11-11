@@ -12,8 +12,8 @@ class TroChoiMoi extends StatelessWidget {
             begin: Alignment.bottomRight,
             end: Alignment.topLeft,
             colors: <Color>[
-              Color.fromARGB(183, 191, 89, 71),
-              Color.fromARGB(183, 73, 100, 175),
+              Color.fromARGB(183, 255, 38, 0),
+              Color.fromARGB(183, 0, 68, 255),
             ],
             tileMode: TileMode.mirror,
           ),
@@ -23,13 +23,9 @@ class TroChoiMoi extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.question_mark_sharp,
-                  size: 150,
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  height: 100,
+                Image.asset(
+                  'images/logo.png',
+                  height: 250,
                 ),
                 Text(
                   'Trò chơi mới',
