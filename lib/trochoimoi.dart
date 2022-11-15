@@ -23,9 +23,12 @@ class TroChoiMoi extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'images/logo.png',
-                  height: 250,
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Image.asset(
+                    'images/logo.png',
+                    height: 250,
+                  ),
                 ),
                 Text(
                   'Trò chơi mới',
@@ -47,65 +50,65 @@ class TroChoiMoi extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                ElevatedButton.icon(
+                OutlinedButton(
                   onPressed: () {},
-                  icon: Icon(
-                    Icons.abc,
-                    size: 24.0,
-                  ),
-                  label: Text(
+                  child: const Text(
                     'Lịch sử - Địa lí Việt Nam',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(275, 50),
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black12),
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.white, width: 3),
+                      fixedSize: Size(280, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
-                ElevatedButton.icon(
+                OutlinedButton(
                   onPressed: () {},
-                  icon: Icon(
-                    Icons.abc,
-                    size: 24.0,
+                  child: const Text(
+                    'Game',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
-                  label: Text('Game', style: TextStyle(fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(275, 50),
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black12),
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.white, width: 3),
+                      fixedSize: Size(280, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
-                ElevatedButton.icon(
+                OutlinedButton(
                   onPressed: () {},
-                  icon: Icon(
-                    Icons.abc,
-                    size: 24.0,
+                  child: const Text(
+                    'Hại não',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
-                  label: Text('Hại não', style: TextStyle(fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(275, 50),
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black12),
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.white, width: 3),
+                      fixedSize: Size(280, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
-                ElevatedButton.icon(
+                OutlinedButton(
                   onPressed: () {},
-                  icon: Icon(
-                    Icons.ballot,
-                    size: 24.0,
+                  child: const Text(
+                    'Bóng đá',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
-                  label: Text('Bóng đá', style: TextStyle(fontSize: 16)),
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(275, 50),
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black12),
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.white, width: 3),
+                      fixedSize: Size(280, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                ),
+                SizedBox(
+                  height: 60,
                 ),
               ],
             ),
