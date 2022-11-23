@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:doan_laptrinhdidong/credit.dart';
+import 'package:doan_laptrinhdidong/khangia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'credit.dart';
 
-class KhanGia extends StatelessWidget {
+class TraLoiCauHoi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,10 +171,6 @@ class KhanGia extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
                     ),
-                    Text(
-                      ' %',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    )
                   ],
                 ),
               ),
@@ -187,7 +184,7 @@ class KhanGia extends StatelessWidget {
                     OutlinedButton(
                       onPressed: () {},
                       child: const Text(
-                        'B. Bình Thuận',
+                        'B. Bình Định',
                         style: TextStyle(color: Colors.white),
                       ),
                       style: OutlinedButton.styleFrom(
@@ -196,10 +193,6 @@ class KhanGia extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
                     ),
-                    Text(
-                      ' %',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    )
                   ],
                 ),
               ),
@@ -222,10 +215,6 @@ class KhanGia extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
                     ),
-                    Text(
-                      ' %',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    )
                   ],
                 ),
               ),
@@ -239,7 +228,7 @@ class KhanGia extends StatelessWidget {
                     OutlinedButton(
                       onPressed: () {},
                       child: const Text(
-                        'D. Ninh Thuận',
+                        'D.Ninh Thuận',
                         style: TextStyle(color: Colors.white),
                       ),
                       style: OutlinedButton.styleFrom(
@@ -248,10 +237,6 @@ class KhanGia extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
                     ),
-                    Text(
-                      ' %',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    )
                   ],
                 ),
               ),
@@ -262,7 +247,10 @@ class KhanGia extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => KhanGia()));
+                    },
                     child: Icon(
                       Icons.people,
                       color: Colors.white,
@@ -280,7 +268,7 @@ class KhanGia extends StatelessWidget {
                       color: Colors.white,
                     ),
                     style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.blue, width: 3),
+                        side: BorderSide(color: Colors.white, width: 3),
                         fixedSize: Size(40, 40),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),

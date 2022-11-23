@@ -1,8 +1,14 @@
 import 'dart:ui';
 
+import 'package:doan_laptrinhdidong/traloicauhoi.dart';
 import 'package:flutter/material.dart';
 
-class TroChoiMoi extends StatelessWidget {
+class TroChoiMoi extends StatefulWidget {
+  @override
+  State<TroChoiMoi> createState() => _TroChoiMoi();
+}
+
+class _TroChoiMoi extends State<TroChoiMoi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +57,12 @@ class TroChoiMoi extends StatelessWidget {
                   height: 20,
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraLoiCauHoi()));
+                  },
                   child: const Text(
                     'Lịch sử - Địa lí Việt Nam',
                     style: TextStyle(fontSize: 18, color: Colors.white),
@@ -66,7 +77,12 @@ class TroChoiMoi extends StatelessWidget {
                   height: 10,
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraLoiCauHoi()));
+                  },
                   child: const Text(
                     'Game',
                     style: TextStyle(fontSize: 18, color: Colors.white),
@@ -81,7 +97,12 @@ class TroChoiMoi extends StatelessWidget {
                   height: 10,
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraLoiCauHoi()));
+                  },
                   child: const Text(
                     'Hại não',
                     style: TextStyle(fontSize: 18, color: Colors.white),
@@ -96,7 +117,12 @@ class TroChoiMoi extends StatelessWidget {
                   height: 10,
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TraLoiCauHoi()));
+                  },
                   child: const Text(
                     'Bóng đá',
                     style: TextStyle(fontSize: 18, color: Colors.white),
