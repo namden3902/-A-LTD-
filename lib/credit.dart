@@ -1,149 +1,253 @@
 import 'package:flutter/material.dart';
 
-class muacredit extends StatelessWidget {
-  const muacredit({super.key});
+class Credit extends StatefulWidget {
+  @override
+  State<Credit> createState() => _Credit();
+}
 
+class _Credit extends State<Credit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Mua credit'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset('assets/conmeongungocdangiu.jpeg'),
-          Text(
-            "Mua credit",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2,
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
+            colors: <Color>[
+              Color.fromARGB(183, 255, 38, 0),
+              Color.fromARGB(183, 0, 68, 255),
+            ],
+            tileMode: TileMode.mirror,
           ),
-          Padding(padding: EdgeInsets.all(30)),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                Column(
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Image.asset(
+                    'images/logo.png',
+                    height: 250,
+                  ),
+                ),
+                Text(
+                  'Cửa hàng credit',
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.diamond),
-                      label: Text(
-                        '500',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Container(
+                        child: Center(
+                      child: Column(
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Nhập mã thẻ'),
+                                      content: TextField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            hintText: ('Mã thẻ')),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              //Xử lý sau
+                                            },
+                                            child: Text('Xác nhận'))
+                                      ],
+                                    );
+                                  });
+                            },
+                            icon: Icon(Icons.diamond, color: Colors.white),
+                            label: Text(
+                              '200',
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Center(
+                            child: Text('20.000 VND',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white)),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                    ),
-                    Center(
-                      child: Text('50.000 VND',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal,
-                          )),
-                    ),
+                    )),
+                    Container(
+                        child: Center(
+                      child: Column(
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Nhập mã thẻ'),
+                                      content: TextField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            hintText: ('Mã thẻ')),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              //Xử lý sau
+                                            },
+                                            child: Text('Xác nhận'))
+                                      ],
+                                    );
+                                  });
+                            },
+                            icon: Icon(Icons.diamond, color: Colors.white),
+                            label: Text(
+                              '500',
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Center(
+                            child: Text('50.000 VND',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white)),
+                          ),
+                        ],
+                      ),
+                    )),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.all(50),
+                SizedBox(
+                  height: 30,
                 ),
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.diamond),
-                      label: Text(
-                        '1000',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Container(
+                        child: Center(
+                      child: Column(
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Nhập mã thẻ'),
+                                      content: TextField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            hintText: ('Mã thẻ')),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              //Xử lý sau
+                                            },
+                                            child: Text('Xác nhận'))
+                                      ],
+                                    );
+                                  });
+                            },
+                            icon: Icon(Icons.diamond, color: Colors.white),
+                            label: Text(
+                              '2000',
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Center(
+                            child: Text('200.000 VND',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white)),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                    ),
-                    Center(
-                      child: Text('100.000 VND',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal,
-                          )),
-                    ),
+                    )),
+                    Container(
+                        child: Center(
+                      child: Column(
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Nhập mã thẻ'),
+                                      content: TextField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            hintText: ('Mã thẻ')),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              //Xử lý sau
+                                            },
+                                            child: Text('Xác nhận'))
+                                      ],
+                                    );
+                                  });
+                            },
+                            icon: Icon(Icons.diamond, color: Colors.white),
+                            label: Text(
+                              '5000',
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Center(
+                            child: Text('500.000 VND',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white)),
+                          ),
+                        ],
+                      ),
+                    ))
                   ],
                 )
               ],
             ),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    TextButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.diamond),
-                      label: Text(
-                        '1500',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                    ),
-                    Center(
-                      child: Text('150.000 VND',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal,
-                          )),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.all(45),
-                ),
-                Column(
-                  children: [
-                    TextButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.diamond),
-                      label: Text(
-                        '2000',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                    ),
-                    Center(
-                      child: Text('200.000 VND',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal,
-                          )),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

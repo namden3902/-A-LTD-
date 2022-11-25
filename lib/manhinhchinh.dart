@@ -1,3 +1,4 @@
+import 'package:doan_laptrinhdidong/credit.dart';
 import 'package:doan_laptrinhdidong/lichsutrochoi.dart';
 import 'package:doan_laptrinhdidong/thongtintaikhoan.dart';
 import 'package:doan_laptrinhdidong/trochoimoi.dart';
@@ -124,7 +125,10 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)), //<-- SEE HERE
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Credit()));
+                  },
                   child: const Text(
                     'Mua credit',
                     style: TextStyle(

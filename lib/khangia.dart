@@ -1,9 +1,19 @@
 import 'dart:async';
+import 'package:doan_laptrinhdidong/traloicauhoi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'credit.dart';
 
-class KhanGia extends StatelessWidget {
+class KhanGia extends StatefulWidget {
+  final int? SoCauHoi;
+  final int? SoDiem;
+  final int? SoCredit;
+  KhanGia({this.SoCauHoi, this.SoDiem, this.SoCredit});
+  @override
+  State<KhanGia> createState() => _KhanGia();
+}
+
+class _KhanGia extends State<KhanGia> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +78,7 @@ class KhanGia extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                'Credit:500',
+                                'Credit' + SoCredit.toString(),
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white),
                               ),
@@ -77,7 +87,7 @@ class KhanGia extends StatelessWidget {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => muacredit()));
+                                            builder: (context) => Credit()));
                                   },
                                   icon: Icon(
                                     Icons.shop,
@@ -91,16 +101,12 @@ class KhanGia extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Điểm: ',
+                    'Điểm: ' + SoDiem.toString(),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic),
-                  ),
-                  Text(
-                    'Số điểm',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                 ],
               ),
@@ -259,10 +265,13 @@ class KhanGia extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => KhanGia()));
+                    },
                     child: Icon(
                       Icons.people,
                       color: Colors.white,
@@ -273,6 +282,9 @@ class KhanGia extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
                   ),
+                  SizedBox(
+                    width: 10,
+                  ),
                   OutlinedButton(
                     onPressed: () {},
                     child: Icon(
@@ -280,10 +292,13 @@ class KhanGia extends StatelessWidget {
                       color: Colors.white,
                     ),
                     style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.blue, width: 3),
+                        side: BorderSide(color: Colors.white, width: 3),
                         fixedSize: Size(40, 40),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
+                  ),
+                  SizedBox(
+                    width: 10,
                   ),
                   OutlinedButton(
                     onPressed: () {},
@@ -298,7 +313,22 @@ class KhanGia extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8))),
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              OutlinedButton(
+                onPressed: () {},
+                child: Icon(
+                  Icons.skip_next,
+                  color: Colors.white,
+                ),
+                style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.white, width: 3),
+                    fixedSize: Size(40, 40),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8))),
+              ),
             ],
           ),
         ),

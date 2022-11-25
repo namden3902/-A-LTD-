@@ -9,6 +9,8 @@ class TroChoiMoi extends StatefulWidget {
 }
 
 class _TroChoiMoi extends State<TroChoiMoi> {
+  late String? TenLinhVuc;
+  _TroChoiMoi({this.TenLinhVuc});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,10 +60,13 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                 ),
                 OutlinedButton(
                   onPressed: () {
+                    TenLinhVuc = 'Lịch sử - Địa lí Việt Nam';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TraLoiCauHoi()));
+                            builder: (context) => TraLoiCauHoi(
+                                  TenLinhVuc: TenLinhVuc,
+                                )));
                   },
                   child: const Text(
                     'Lịch sử - Địa lí Việt Nam',
@@ -78,10 +83,13 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                 ),
                 OutlinedButton(
                   onPressed: () {
+                    TenLinhVuc = 'Game';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TraLoiCauHoi()));
+                            builder: (context) => TraLoiCauHoi(
+                                  TenLinhVuc: TenLinhVuc,
+                                )));
                   },
                   child: const Text(
                     'Game',
@@ -98,10 +106,13 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                 ),
                 OutlinedButton(
                   onPressed: () {
+                    TenLinhVuc = 'Hại não';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TraLoiCauHoi()));
+                            builder: (context) => TraLoiCauHoi(
+                                  TenLinhVuc: TenLinhVuc,
+                                )));
                   },
                   child: const Text(
                     'Hại não',
@@ -118,10 +129,13 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                 ),
                 OutlinedButton(
                   onPressed: () {
+                    TenLinhVuc = 'Bóng đá';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TraLoiCauHoi()));
+                            builder: (context) => TraLoiCauHoi(
+                                  TenLinhVuc: TenLinhVuc,
+                                )));
                   },
                   child: const Text(
                     'Bóng đá',

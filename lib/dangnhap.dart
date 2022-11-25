@@ -9,6 +9,7 @@ class DangNhap extends StatefulWidget {
 }
 
 class _DangNhap extends State<DangNhap> {
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +58,7 @@ class _DangNhap extends State<DangNhap> {
               SizedBox(
                 width: 350,
                 child: TextField(
-                  obscureText: true,
+                  obscureText: _obscureText,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       labelText: 'Mật khẩu',
@@ -68,9 +69,18 @@ class _DangNhap extends State<DangNhap> {
                           borderRadius: BorderRadius.circular(20),
                           borderSide:
                               BorderSide(color: Colors.white, width: 3)),
-                      prefixIcon: Icon(
-                        Icons.password,
-                        color: Colors.white,
+                      prefixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                        child: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.white,
+                        ),
                       )),
                 ),
               ),

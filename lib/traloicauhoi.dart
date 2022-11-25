@@ -4,7 +4,19 @@ import 'package:doan_laptrinhdidong/khangia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class TraLoiCauHoi extends StatelessWidget {
+int SoCau = 1, SoDiem = 500, SoCredit = 0;
+bool NguoiThan = false;
+
+class TraLoiCauHoi extends StatefulWidget {
+  final String? TenLinhVuc;
+  TraLoiCauHoi({this.TenLinhVuc});
+  @override
+  State<TraLoiCauHoi> createState() => _TraLoiCauHoi(TenLV: TenLinhVuc);
+}
+
+class _TraLoiCauHoi extends State<TraLoiCauHoi> {
+  final String? TenLV;
+  _TraLoiCauHoi({this.TenLV});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +81,7 @@ class TraLoiCauHoi extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                'Credit:500',
+                                'Credit:' + SoCredit.toString(),
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white),
                               ),
@@ -78,7 +90,7 @@ class TraLoiCauHoi extends StatelessWidget {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => muacredit()));
+                                            builder: (context) => Credit()));
                                   },
                                   icon: Icon(
                                     Icons.shop,
@@ -92,16 +104,12 @@ class TraLoiCauHoi extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Điểm: ',
+                    'Điểm: ' + SoDiem.toString(),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic),
-                  ),
-                  Text(
-                    'Số điểm',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                 ],
               ),
@@ -109,16 +117,12 @@ class TraLoiCauHoi extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Lĩnh vực: ',
+                    'Lĩnh vực: ' + TenLV.toString(),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic),
-                  ),
-                  Text(
-                    'Lịch sử - địa lí Việt Nam',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                 ],
               ),
@@ -138,7 +142,7 @@ class TraLoiCauHoi extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  '1',
+                  SoCau.toString(),
                   style: TextStyle(fontSize: 40, color: Colors.white),
                 ),
                 height: 75,
@@ -244,12 +248,18 @@ class TraLoiCauHoi extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => KhanGia()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KhanGia(
+                                    SoCauHoi: SoCau,
+                                    SoDiem: SoDiem,
+                                    SoCredit: SoCredit,
+                                  )));
                     },
                     child: Icon(
                       Icons.people,
@@ -260,6 +270,9 @@ class TraLoiCauHoi extends StatelessWidget {
                         fixedSize: Size(40, 40),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
+                  ),
+                  SizedBox(
+                    width: 10,
                   ),
                   OutlinedButton(
                     onPressed: () {},
@@ -273,8 +286,48 @@ class TraLoiCauHoi extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
                   ),
+                  SizedBox(
+                    width: 10,
+                  ),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (NguoiThan == true) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Thông báo'),
+                                content: Text(
+                                    'Bạn đã sử dụng quyền trợ giúp trong lượt chơi này'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Xin cảm ơn'))
+                                ],
+                              );
+                            });
+                      }
+                      if (NguoiThan == false) {
+                        NguoiThan = true;
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Câu trả lời từ người thân'),
+                                content: Text('Đáp án: Đáp án chính xác nhất'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Xin cảm ơn'))
+                                ],
+                              );
+                            });
+                      }
+                    },
                     child: Icon(
                       Icons.phone,
                       color: Colors.white,
@@ -286,7 +339,31 @@ class TraLoiCauHoi extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8))),
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  SoCau = SoCau + 1;
+                  SoDiem = SoDiem + 100;
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TraLoiCauHoi(
+                                TenLinhVuc: TenLV,
+                              )));
+                },
+                child: Icon(
+                  Icons.skip_next,
+                  color: Colors.white,
+                ),
+                style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.white, width: 3),
+                    fixedSize: Size(40, 40),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8))),
+              ),
             ],
           ),
         ),

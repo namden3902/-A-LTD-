@@ -1,12 +1,13 @@
-import 'package:doan_laptrinhdidong/khangia.dart';
-import 'package:doan_laptrinhdidong/lichsutrochoi.dart';
-import 'package:doan_laptrinhdidong/traloicauhoi.dart';
-import 'package:doan_laptrinhdidong/trochoimoi.dart';
-import 'package:doan_laptrinhdidong/xephang.dart';
+import 'package:flutter/services.dart';
+
 import 'dangnhap.dart';
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(DaiNam());
 }
 
