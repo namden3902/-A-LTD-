@@ -152,7 +152,7 @@ class XepHang extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     subtitle: const Text(
-                      'Số câu: 10',
+                      'Số câu: 11',
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     trailing: const Text('2490 điểm',
