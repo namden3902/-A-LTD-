@@ -3,7 +3,6 @@ import 'package:doan_laptrinhdidong/lichsutrochoi.dart';
 import 'package:doan_laptrinhdidong/thongtintaikhoan.dart';
 import 'package:doan_laptrinhdidong/trochoimoi.dart';
 import 'package:doan_laptrinhdidong/xephang.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ManHinhChinh extends StatefulWidget {

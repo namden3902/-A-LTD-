@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'package:doan_laptrinhdidong/traloicauhoi.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'credit.dart';
 
 class KhanGia extends StatefulWidget {
