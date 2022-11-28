@@ -15,10 +15,28 @@ class TraLoiCauHoi extends StatefulWidget {
 }
 
 class _TraLoiCauHoi extends State<TraLoiCauHoi> {
+  static const maxSeconds = 1;
+  int seconds = maxSeconds;
+  Timer? timer;
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      setState(() => seconds--);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
   final String? TenLV;
   _TraLoiCauHoi({this.TenLV});
   @override
   Widget build(BuildContext context) {
+    if (seconds == 0) {
+      timer?.cancel();
+    }
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -315,15 +333,27 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text('Câu trả lời từ người thân'),
-                                content: Text('Đáp án: Đáp án chính xác nhất'),
+                                title: Text('Câu trả lời từ người thân',
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center),
+                                content: Text(
+                                  'B',
+                                  style: TextStyle(
+                                      fontSize: 100, color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
                                 actions: [
                                   TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Text('Xin cảm ơn'))
+                                      child: Text(
+                                        'Xin cảm ơn',
+                                        style: TextStyle(color: Colors.white),
+                                      ))
                                 ],
+                                actionsAlignment: MainAxisAlignment.center,
+                                backgroundColor: Colors.lightBlue,
                               );
                             });
                       }
@@ -343,16 +373,11 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
               SizedBox(
                 height: 20,
               ),
+              buildTimer(),
               OutlinedButton(
                 onPressed: () {
                   SoCau = SoCau + 1;
-                  SoDiem = SoDiem + 100;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TraLoiCauHoi(
-                                TenLinhVuc: TenLV,
-                              )));
+                  setState(() {});
                 },
                 child: Icon(
                   Icons.skip_next,
@@ -370,4 +395,29 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
       ),
     );
   }
+
+  Widget buildTime() {
+    return Text(
+      '$seconds',
+      style: const TextStyle(
+          fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget buildTimer() => SizedBox(
+        width: 50,
+        height: 50,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            CircularProgressIndicator(
+              value: seconds / maxSeconds,
+              valueColor: AlwaysStoppedAnimation(Colors.greenAccent),
+              strokeWidth: 10,
+              backgroundColor: Colors.red,
+            ),
+            Center(child: buildTime())
+          ],
+        ),
+      );
 }
