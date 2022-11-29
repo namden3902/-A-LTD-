@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 
-class XepHang extends StatelessWidget {
+class XepHang extends StatefulWidget {
+  @override
+  State<XepHang> createState() => _XepHang();
+}
+
+class _XepHang extends State<XepHang> {
+  List<XH> xephang = [
+    XH('Đại Nam', 10, 100),
+    XH('RonalDo', 0, 100),
+    XH('Messi', 0, 100),
+    XH('Neymar', 1, 1000),
+    XH('Neymar', 1, 1000)
+  ];
+  int rank = 0;
+  String xhang() {
+    rank++;
+    return rank.toString();
+  }
+
+  get x => xhang();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,154 +35,41 @@ class XepHang extends StatelessWidget {
             tileMode: TileMode.mirror,
           ),
         ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Image.asset(
-                    'images/logo.png',
-                    height: 250,
-                  ),
-                ),
-                Text(
-                  'Bảng xếp hạng',
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 3, color: Colors.blueAccent),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    leading: CircleAvatar(
-                      child: const Text(
-                        '1',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    title: const Text(
-                      'Tên người chơi',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    subtitle: const Text(
-                      'Số câu: 10',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    trailing: const Text('2490 điểm',
-                        style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 3, color: Colors.blueAccent),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    leading: CircleAvatar(
-                      child: const Text(
-                        '2',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    title: const Text(
-                      'Tên người chơi',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    subtitle: const Text(
-                      'Số câu: 10',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    trailing: const Text('2490 điểm',
-                        style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 3, color: Colors.blueAccent),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    leading: CircleAvatar(
-                      child: const Text(
-                        '3',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    title: const Text(
-                      'Tên người chơi',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    subtitle: const Text(
-                      'Số câu: 10',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    trailing: const Text('2490 điểm',
-                        style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 3, color: Colors.blueAccent),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    leading: CircleAvatar(
-                      child: const Text(
-                        '4',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    title: const Text(
-                      'Tên người chơi',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    subtitle: const Text(
-                      'Số câu: 10',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    trailing: const Text('2490 điểm',
-                        style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 3, color: Colors.blueAccent),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    leading: CircleAvatar(
-                      child: const Text(
-                        '5',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    title: const Text(
-                      'Tên người chơi',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    subtitle: const Text(
-                      'Số câu: 10',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    trailing: const Text('2490 điểm',
-                        style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        child: ListView.builder(
+          padding: EdgeInsets.all(15),
+          itemCount: xephang.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(width: 3, color: Colors.blueAccent),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              // ignore: avoid_print
+              leading: CircleAvatar(child: Text(x)),
+              title: Text(
+                xephang[index].TenNguoiChoi.toString(),
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              subtitle: Text(
+                xephang[index].SoCau.toString(),
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              trailing: Text(
+                xephang[index].SoDiem.toString(),
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            );
+          },
         ),
       ),
     );
+    // ignore: dead_code
   }
+}
+
+class XH {
+  final String TenNguoiChoi;
+  final int SoCau;
+  final int SoDiem;
+  XH(this.TenNguoiChoi, this.SoCau, this.SoDiem);
 }
