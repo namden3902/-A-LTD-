@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:doan_laptrinhdidong/credit.dart';
-import 'package:doan_laptrinhdidong/khangia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

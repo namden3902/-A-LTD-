@@ -1,11 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class DangKy extends StatefulWidget {
   @override
   State<DangKy> createState() => _DangKy();
 }
 
+int Credit = 100;
+
 class _DangKy extends State<DangKy> {
+  CollectionReference usERS = FirebaseFirestore.instance.collection('users');
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtUsername = TextEditingController();
+  TextEditingController txtPhone = TextEditingController();
+  TextEditingController txtPass = TextEditingController();
+  TextEditingController txtRWPass = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  Future<void> addUser() {
+    // Call the user's CollectionReference to add a new user
+    return usERS
+        .add({
+          'email': txtEmail.text,
+          'phone': txtPhone.text,
+          'username': txtUsername.text,
+          'credit': Credit,
+        })
+        .then((value) => Navigator.pop(context, 'Đăng ký thành công'))
+        .catchError(
+            (error) => Navigator.pop(context, 'Đăng ký thất bại $error'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +86,7 @@ class _DangKy extends State<DangKy> {
                           Icons.person,
                           color: Colors.white,
                         )),
+                    controller: txtUsername,
                   ),
                 ),
                 SizedBox(
@@ -84,6 +111,7 @@ class _DangKy extends State<DangKy> {
                           Icons.mail,
                           color: Colors.white,
                         )),
+                    controller: txtEmail,
                   ),
                 ),
                 SizedBox(
@@ -108,6 +136,7 @@ class _DangKy extends State<DangKy> {
                           Icons.phone,
                           color: Colors.white,
                         )),
+                    controller: txtPhone,
                   ),
                 ),
                 SizedBox(
@@ -120,7 +149,7 @@ class _DangKy extends State<DangKy> {
                     obscureText: true,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                        labelText: 'Mật khẩu mới',
+                        labelText: 'Mật khẩu',
                         labelStyle: TextStyle(
                           color: Colors.white, //<-- SEE HERE
                         ),
@@ -132,6 +161,7 @@ class _DangKy extends State<DangKy> {
                           Icons.password,
                           color: Colors.white,
                         )),
+                    controller: txtPass,
                   ),
                 ),
                 SizedBox(
@@ -156,31 +186,11 @@ class _DangKy extends State<DangKy> {
                           Icons.password,
                           color: Colors.white,
                         )),
+                    controller: txtRWPass,
                   ),
                 ),
                 SizedBox(
                   height: 10,
-                ),
-                SizedBox(
-                  width: 350,
-                  height: 50,
-                  child: TextField(
-                    obscureText: true,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        labelText: 'Mã xác nhận',
-                        labelStyle: TextStyle(
-                          color: Colors.white, //<-- SEE HERE
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 3)),
-                        prefixIcon: Icon(
-                          Icons.code_rounded,
-                          color: Colors.white,
-                        )),
-                  ),
                 ),
                 SizedBox(
                   height: 40,
@@ -190,8 +200,26 @@ class _DangKy extends State<DangKy> {
                     side: BorderSide(color: Colors.white, width: 3),
                     fixedSize: Size(100, 40), //<-- SEE HERE
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    try {
+                      final newUser = _auth.createUserWithEmailAndPassword(
+                          email: txtEmail.text, password: txtPass.text);
+                      if (txtPass.text == txtRWPass.text) {
+                        if (newUser != null) {
+                          Navigator.pop(context, 'Đăng ký thành công');
+                          addUser();
+                        } else {
+                          final snackBar = SnackBar(
+                              content: Text('Tài khoản này đã tồn tại'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      }
+                    } catch (e) {
+                      final snackBar = SnackBar(
+                          content:
+                              Text('Không ổn rồi Đại Vương ơi! Có lỗi.......'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                   },
                   child: const Text(
                     'Đăng ký',

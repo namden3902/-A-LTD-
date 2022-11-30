@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class QuenMatKhau extends StatefulWidget {
@@ -6,6 +9,13 @@ class QuenMatKhau extends StatefulWidget {
 }
 
 class _Quenmatkhau extends State<QuenMatKhau> {
+  final _auth = FirebaseAuth.instance;
+  final txtEmail = TextEditingController();
+  void discope() {
+    txtEmail.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,116 +57,98 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                   height: 50,
                   child: TextField(
                     style: TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        labelText: 'Tên đăng nhập',
-                        labelStyle: TextStyle(
-                          color: Colors.white, //<-- SEE HERE
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 3)),
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: Colors.white,
-                        )),
+                      labelText: 'Email',
+                      labelStyle: TextStyle(
+                        color: Colors.white, //<-- SEE HERE
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 3)),
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                    ),
+                    controller: txtEmail,
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                SizedBox(
-                  width: 350,
-                  height: 50,
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        labelText: 'Số điện thoại',
-                        labelStyle: TextStyle(
-                          color: Colors.white, //<-- SEE HERE
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 3)),
-                        prefixIcon: Icon(
-                          Icons.phone,
-                          color: Colors.white,
-                        )),
-                  ),
-                ),
+                // SizedBox(
+                //   width: 350,
+                //   height: 50,
+                //   child: TextField(
+                //     keyboardType: TextInputType.number,
+                //     style: TextStyle(color: Colors.white),
+                //     decoration: InputDecoration(
+                //         labelText: 'Số điện thoại',
+                //         labelStyle: TextStyle(
+                //           color: Colors.white, //<-- SEE HERE
+                //         ),
+                //         enabledBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.circular(20),
+                //             borderSide:
+                //                 BorderSide(color: Colors.white, width: 3)),
+                //         prefixIcon: Icon(
+                //           Icons.phone,
+                //           color: Colors.white,
+                //         )),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // SizedBox(
+                //   width: 350,
+                //   height: 50,
+                //   child: TextField(
+                //     obscureText: true,
+                //     style: TextStyle(color: Colors.white),
+                //     decoration: InputDecoration(
+                //         labelText: 'Mật khẩu mới',
+                //         labelStyle: TextStyle(
+                //           color: Colors.white, //<-- SEE HERE
+                //         ),
+                //         enabledBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.circular(20),
+                //             borderSide:
+                //                 BorderSide(color: Colors.white, width: 3)),
+                //         prefixIcon: Icon(
+                //           Icons.password,
+                //           color: Colors.white,
+                //         )),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // SizedBox(
+                //   width: 350,
+                //   height: 50,
+                //   child: TextField(
+                //     obscureText: true,
+                //     style: TextStyle(color: Colors.white),
+                //     decoration: InputDecoration(
+                //         labelText: 'Nhập lại mật khẩu',
+                //         labelStyle: TextStyle(
+                //           color: Colors.white, //<-- SEE HERE
+                //         ),
+                //         enabledBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.circular(20),
+                //             borderSide:
+                //                 BorderSide(color: Colors.white, width: 3)),
+                //         prefixIcon: Icon(
+                //           Icons.password,
+                //           color: Colors.white,
+                //         )),
+                //   ),
+                // ),
                 SizedBox(
                   height: 10,
-                ),
-                SizedBox(
-                  width: 350,
-                  height: 50,
-                  child: TextField(
-                    obscureText: true,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        labelText: 'Mật khẩu mới',
-                        labelStyle: TextStyle(
-                          color: Colors.white, //<-- SEE HERE
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 3)),
-                        prefixIcon: Icon(
-                          Icons.password,
-                          color: Colors.white,
-                        )),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: 350,
-                  height: 50,
-                  child: TextField(
-                    obscureText: true,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        labelText: 'Nhập lại mật khẩu',
-                        labelStyle: TextStyle(
-                          color: Colors.white, //<-- SEE HERE
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 3)),
-                        prefixIcon: Icon(
-                          Icons.password,
-                          color: Colors.white,
-                        )),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: 350,
-                  height: 50,
-                  child: TextField(
-                    obscureText: true,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        labelText: 'Mã xác nhận',
-                        labelStyle: TextStyle(
-                          color: Colors.white, //<-- SEE HERE
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 3)),
-                        prefixIcon: Icon(
-                          Icons.code_rounded,
-                          color: Colors.white,
-                        )),
-                  ),
                 ),
                 SizedBox(
                   height: 40,
@@ -166,8 +158,18 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                     side: BorderSide(color: Colors.white, width: 3),
                     fixedSize: Size(100, 40), //<-- SEE HERE
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    try {
+                      final _user =
+                          _auth.sendPasswordResetEmail(email: txtEmail.text);
+                      Navigator.pop(
+                          context, 'Gửi liên kết đặt lại mật khẩu thành công');
+                    } catch (e) {
+                      final snackBar = SnackBar(
+                          content:
+                              Text('Gửi liên kết đặt lại mật khẩu thất bại'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                   },
                   child: const Text(
                     'Đặt lại',

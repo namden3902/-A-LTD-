@@ -2,6 +2,9 @@ import 'package:doan_laptrinhdidong/dangky.dart';
 import 'package:doan_laptrinhdidong/manhinhchinh.dart';
 import 'package:doan_laptrinhdidong/quenmatkhau.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DangNhap extends StatefulWidget {
   @override
@@ -9,7 +12,10 @@ class DangNhap extends StatefulWidget {
 }
 
 class _DangNhap extends State<DangNhap> {
+  final _auth = FirebaseAuth.instance;
   bool _obscureText = true;
+  final txtEmail = TextEditingController();
+  final txtPass = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +46,9 @@ class _DangNhap extends State<DangNhap> {
                 width: 350,
                 child: TextField(
                   style: TextStyle(color: Colors.white),
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                      labelText: 'Tên đăng nhập',
+                      labelText: 'Email',
                       labelStyle: TextStyle(
                         color: Colors.white, //<-- SEE HERE
                       ),
@@ -50,6 +57,7 @@ class _DangNhap extends State<DangNhap> {
                           borderSide:
                               BorderSide(color: Colors.white, width: 3)),
                       prefixIcon: Icon(Icons.person, color: Colors.white)),
+                  controller: txtEmail,
                 ),
               ),
               SizedBox(
@@ -82,6 +90,7 @@ class _DangNhap extends State<DangNhap> {
                           color: Colors.white,
                         ),
                       )),
+                  controller: txtPass,
                 ),
               ),
               SizedBox(
@@ -92,9 +101,39 @@ class _DangNhap extends State<DangNhap> {
                   side:
                       BorderSide(color: Colors.white, width: 3), //<-- SEE HERE
                 ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ManHinhChinh()));
+                onPressed: () async {
+                  if (txtEmail.text == "") {
+                    final snackBar = SnackBar(
+                        content: Text('Bạn chưa nhập địa chỉ email !'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    return;
+                  }
+                  if (txtPass.text == "") {
+                    final snackBar =
+                        SnackBar(content: Text('Bạn chưa nhập mật khẩu !'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    return;
+                  }
+                  if (txtEmail.text != "" && txtPass.text != "") {
+                    try {
+                      final _user = await _auth.signInWithEmailAndPassword(
+                          email: txtEmail.text, password: txtPass.text);
+                      _auth.authStateChanges().listen((event) {
+                        if (event != null) {
+                          txtEmail.clear();
+                          txtPass.clear();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ManHinhChinh()));
+                        }
+                      });
+                    } catch (e) {
+                      final snackBar = SnackBar(
+                          content: Text('Email hoặc mật khẩu không đúng'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  }
                 },
                 child: const Text(
                   'Đăng nhập',
@@ -118,8 +157,15 @@ class _DangNhap extends State<DangNhap> {
                       ))),
               TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => QuenMatKhau()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => QuenMatKhau())).then((value) {
+                      if (value != null) {
+                        final snackBar = SnackBar(content: Text(value));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    });
                   },
                   child: Text('Quên mật khẩu ?',
                       style: TextStyle(
