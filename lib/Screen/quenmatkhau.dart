@@ -11,11 +11,6 @@ class QuenMatKhau extends StatefulWidget {
 class _Quenmatkhau extends State<QuenMatKhau> {
   final _auth = FirebaseAuth.instance;
   final txtEmail = TextEditingController();
-  void discope() {
-    txtEmail.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

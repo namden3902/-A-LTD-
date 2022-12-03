@@ -1,6 +1,6 @@
-import 'package:doan_laptrinhdidong/dangky.dart';
-import 'package:doan_laptrinhdidong/manhinhchinh.dart';
-import 'package:doan_laptrinhdidong/quenmatkhau.dart';
+import 'dangky.dart';
+import 'manhinhchinh.dart';
+import 'quenmatkhau.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -108,6 +108,14 @@ class _DangNhap extends State<DangNhap> {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     return;
                   }
+                  //Validate của kiểm thử phần mmềm
+                  String temp = txtEmail.toString();
+                  if (temp.indexOf("@gmail.com") == -1) {
+                    final snackBar = SnackBar(
+                        content: Text(
+                            'Bạn chưa nhập đúng định dạng của một email !'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
                   if (txtPass.text == "") {
                     final snackBar =
                         SnackBar(content: Text('Bạn chưa nhập mật khẩu !'));
@@ -120,17 +128,23 @@ class _DangNhap extends State<DangNhap> {
                           email: txtEmail.text, password: txtPass.text);
                       _auth.authStateChanges().listen((event) {
                         if (event != null) {
-                          txtEmail.clear();
-                          txtPass.clear();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ManHinhChinh()));
+                                  builder: (context) => ManHinhChinh(
+                                        email: txtEmail.text,
+                                      )));
+                          // txtEmail.clear();
+                          // txtPass.clear();
+                        } else {
+                          final snackBar = SnackBar(
+                              content: Text('Email hoặc mật khẩu ko đúng'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       });
                     } catch (e) {
-                      final snackBar = SnackBar(
-                          content: Text('Email hoặc mật khẩu không đúng'));
+                      final snackBar =
+                          SnackBar(content: Text('Lỗi kết nối đến server'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   }
