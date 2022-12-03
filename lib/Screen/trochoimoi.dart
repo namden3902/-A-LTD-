@@ -2,13 +2,16 @@ import 'traloicauhoi.dart';
 import 'package:flutter/material.dart';
 
 class TroChoiMoi extends StatefulWidget {
+  final String? email;
+  TroChoiMoi({Key? key, required this.email}) : super(key: key);
   @override
-  State<TroChoiMoi> createState() => _TroChoiMoi();
+  State<TroChoiMoi> createState() => _TroChoiMoi(email: email);
 }
 
 class _TroChoiMoi extends State<TroChoiMoi> {
   late String? TenLinhVuc;
-  _TroChoiMoi({this.TenLinhVuc});
+  final String? email;
+  _TroChoiMoi({this.TenLinhVuc, this.email});
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -66,6 +69,7 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                                 builder: (context) => TraLoiCauHoi(
                                       TenLinhVuc: TenLinhVuc,
                                       idLinhVuc: 1,
+                                      email: email,
                                     )));
                       },
                       child: const Text(
@@ -157,7 +161,7 @@ class _TroChoiMoi extends State<TroChoiMoi> {
           ),
         ),
         onWillPop: () async {
-          return false;
+          return true;
         });
   }
 }

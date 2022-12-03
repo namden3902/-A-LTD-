@@ -7,22 +7,33 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_laptrinhdidong/Screen/manhinhchinh.dart';
 
-import 'credit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class TraLoiCauHoi extends StatefulWidget {
   final String? TenLinhVuc;
   final int? idLinhVuc;
-  TraLoiCauHoi({this.TenLinhVuc, this.idLinhVuc});
+  final String? email;
+  TraLoiCauHoi({this.TenLinhVuc, this.idLinhVuc, this.email});
   @override
   State<TraLoiCauHoi> createState() =>
-      _TraLoiCauHoi(TenLV: TenLinhVuc, idLinhVuc: idLinhVuc);
+      _TraLoiCauHoi(TenLV: TenLinhVuc, idLinhVuc: idLinhVuc, email: email);
 }
 
 class _TraLoiCauHoi extends State<TraLoiCauHoi> {
-  int SoCau = 1, SoDiem = 0, SoCredit = 0, SoLuotChoi = 5;
+  CollectionReference lichSuALL =
+      FirebaseFirestore.instance.collection('lishsuall');
+  Future<void> addHS() {
+    return lichSuALL.add({
+      'email': email.toString(),
+      'soCauDung': SoCau,
+      'soDiem': SoDiem,
+      'thoiGian': Timestamp.now()
+    });
+  }
 
+  //Khai báo gốc
+  int SoCau = 1, SoDiem = 0, SoCredit = 0, SoLuotChoi = 1;
   bool NguoiThan = false;
   bool NamMuoi = false;
   bool KhanGia = false;
@@ -50,37 +61,15 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     startTimer();
   }
 
-  @override
-  void setState(VoidCallback fn) async {
-    // TODO: implement setState
-    if (seconds == 1) {
-      if (SoLuotChoi > 0) {
-        SoLuotChoi--;
-        seconds = maxSeconds;
-      } else {
-        timer?.cancel();
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                  title: Text('Thông báo'),
-                  content: Text('Bạn đã hết lượt chơi'),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Xin cảm ơn'))
-                  ]);
-            });
-      }
-    }
-    super.setState(fn);
-  }
+  //Trừ lượt chơi
 
   final String? TenLV;
   late int? idLinhVuc;
-  _TraLoiCauHoi({this.TenLV, this.idLinhVuc});
+  final String? email;
+
+  var intValue = Random(1).nextInt(2);
+
+  _TraLoiCauHoi({this.TenLV, this.idLinhVuc, this.email});
   @override
   Widget build(BuildContext context) {
     //Lấy id lĩnh vự
@@ -94,12 +83,9 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     } else {
       id = 4;
     }
-    String ndcauhoi = "",
-        dapanA = "",
-        dapanB = "",
-        dapanC = "",
-        dapanD = "",
-        dapanDung = "";
+    //Giao diện
+    String ndcauhoi = "", dapanA = "", dapanB = "", dapanC = "", dapanD = "";
+    int dapanDung = 0;
     return FutureBuilder<List<CauHoiObject>>(
       future: CauHoiProvider.get(id, 1, SoCau),
       builder: (context, snapshot) {
@@ -161,27 +147,6 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                       )
                                     ],
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Credit:' + SoCredit.toString(),
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
-                                      ),
-                                      IconButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Credit()));
-                                          },
-                                          icon: Icon(
-                                            Icons.shop,
-                                            color: Colors.white,
-                                          ))
-                                    ],
-                                  )
                                 ])),
                       ),
                       Row(
@@ -324,14 +289,6 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => KhanGia(
-                              //               SoCauHoi: SoCau,
-                              //               SoDiem: SoDiem,
-                              //               SoCredit: SoCredit,
-                              //             )));
                               if (KhanGia == true) {
                                 showDialog(
                                     context: context,
@@ -350,116 +307,120 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                       );
                                     });
                               } else {
-                                // KhanGia = true;
-                                // if (dapanDung.toString() == "A") {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           title: Text('Danh sách đáp án bình chọn'),
-                                //           content: Container(
-                                //               child: SizedBox(
-                                //             height: 90,
-                                //             child: Column(
-                                //               children: [
-                                //                 Text('A: 30%'),
-                                //                 Text('B: 26%'),
-                                //                 Text('C: 24%'),
-                                //                 Text('A: 20%'),
-                                //               ],
-                                //             ),
-                                //           )),
-                                //           actions: [
-                                //             TextButton(
-                                //                 onPressed: () {
-                                //                   Navigator.pop(context);
-                                //                 },
-                                //                 child: Text('Xin cảm ơn'))
-                                //           ],
-                                //         );
-                                //       });
-                                // } else if (DA == "B") {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           title: Text('Danh sách đáp án bình chọn'),
-                                //           content: Container(
-                                //               child: SizedBox(
-                                //             height: 90,
-                                //             child: Column(
-                                //               children: [
-                                //                 Text('A: 15%'),
-                                //                 Text('B: 45%'),
-                                //                 Text('C: 18%'),
-                                //                 Text('A: 22%'),
-                                //               ],
-                                //             ),
-                                //           )),
-                                //           actions: [
-                                //             TextButton(
-                                //                 onPressed: () {
-                                //                   Navigator.pop(context);
-                                //                 },
-                                //                 child: Text('Xin cảm ơn'))
-                                //           ],
-                                //         );
-                                //       });
-                                // } else if (DA == "A") {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           title: Text('Danh sách đáp án bình chọn'),
-                                //           content: Container(
-                                //               child: SizedBox(
-                                //             height: 90,
-                                //             child: Column(
-                                //               children: [
-                                //                 Text('A: 10%'),
-                                //                 Text('B: 16%'),
-                                //                 Text('C: 60%'),
-                                //                 Text('A: 14%'),
-                                //               ],
-                                //             ),
-                                //           )),
-                                //           actions: [
-                                //             TextButton(
-                                //                 onPressed: () {
-                                //                   Navigator.pop(context);
-                                //                 },
-                                //                 child: Text('Xin cảm ơn'))
-                                //           ],
-                                //         );
-                                //       });
-                                // } else if (DA == "A") {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           title: Text('Danh sách đáp án bình chọn'),
-                                //           content: Container(
-                                //               child: SizedBox(
-                                //             height: 90,
-                                //             child: Column(
-                                //               children: [
-                                //                 Text('A: 15%'),
-                                //                 Text('B: 25%'),
-                                //                 Text('C: 20%'),
-                                //                 Text('A: 40%'),
-                                //               ],
-                                //             ),
-                                //           )),
-                                //           actions: [
-                                //             TextButton(
-                                //                 onPressed: () {
-                                //                   Navigator.pop(context);
-                                //                 },
-                                //                 child: Text('Xin cảm ơn'))
-                                //           ],
-                                //         );
-                                //       });
-                                // }
+                                KhanGia = true;
+                                if (dapanDung == 1) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              'Danh sách đáp án bình chọn'),
+                                          content: Container(
+                                              child: SizedBox(
+                                            height: 90,
+                                            child: Column(
+                                              children: [
+                                                Text('A: 30%'),
+                                                Text('B: 26%'),
+                                                Text('C: 24%'),
+                                                Text('A: 20%'),
+                                              ],
+                                            ),
+                                          )),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Xin cảm ơn'))
+                                          ],
+                                        );
+                                      });
+                                } else if (dapanDung == 2) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              'Danh sách đáp án bình chọn'),
+                                          content: Container(
+                                              child: SizedBox(
+                                            height: 90,
+                                            child: Column(
+                                              children: [
+                                                Text('A: 15%'),
+                                                Text('B: 45%'),
+                                                Text('C: 18%'),
+                                                Text('A: 22%'),
+                                              ],
+                                            ),
+                                          )),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Xin cảm ơn'))
+                                          ],
+                                        );
+                                      });
+                                } else if (dapanDung == 3) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              'Danh sách đáp án bình chọn'),
+                                          content: Container(
+                                              child: SizedBox(
+                                            height: 90,
+                                            child: Column(
+                                              children: [
+                                                Text('A: 10%'),
+                                                Text('B: 16%'),
+                                                Text('C: 60%'),
+                                                Text('A: 14%'),
+                                              ],
+                                            ),
+                                          )),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Xin cảm ơn'))
+                                          ],
+                                        );
+                                      });
+                                } else if (dapanDung == 4) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              'Danh sách đáp án bình chọn'),
+                                          content: Container(
+                                              child: SizedBox(
+                                            height: 90,
+                                            child: Column(
+                                              children: [
+                                                Text('A: 15%'),
+                                                Text('B: 25%'),
+                                                Text('C: 20%'),
+                                                Text('A: 40%'),
+                                              ],
+                                            ),
+                                          )),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Xin cảm ơn'))
+                                          ],
+                                        );
+                                      });
+                                }
                               }
                             },
                             child: Icon(
@@ -495,28 +456,28 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                       );
                                     });
                               } else {
-                                // NamMuoi = true;
-                                // if (DA == "A") {
-                                //   setState(() {
-                                //     _isVisibleB = !_isVisibleB;
-                                //     _isVisibleC = !_isVisibleC;
-                                //   });
-                                // } else if (DA == "B") {
-                                //   setState(() {
-                                //     _isVisibleA = !_isVisibleA;
-                                //     _isVisibleC = !_isVisibleC;
-                                //   });
-                                // } else if (DA == "C") {
-                                //   setState(() {
-                                //     _isVisibleB = !_isVisibleB;
-                                //     _isVisibleD = !_isVisibleD;
-                                //   });
-                                // } else if (DA == "D") {
-                                //   setState(() {
-                                //     _isVisibleC = !_isVisibleC;
-                                //     _isVisibleA = !_isVisibleA;
-                                //   });
-                                // }
+                                NamMuoi = true;
+                                if (dapanDung == 1) {
+                                  setState(() {
+                                    _isVisibleB = !_isVisibleB;
+                                    _isVisibleC = !_isVisibleC;
+                                  });
+                                } else if (dapanDung == 2) {
+                                  setState(() {
+                                    _isVisibleA = !_isVisibleA;
+                                    _isVisibleC = !_isVisibleC;
+                                  });
+                                } else if (dapanDung == 3) {
+                                  setState(() {
+                                    _isVisibleB = !_isVisibleB;
+                                    _isVisibleD = !_isVisibleD;
+                                  });
+                                } else if (dapanDung == 4) {
+                                  setState(() {
+                                    _isVisibleC = !_isVisibleC;
+                                    _isVisibleA = !_isVisibleA;
+                                  });
+                                }
                               }
                             },
                             child: Icon(
@@ -634,6 +595,43 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
             });
       },
     );
+  }
+
+  @override
+  void setState(VoidCallback fn) async {
+    // TODO: implement setState
+    if (seconds == 1) {
+      if (SoLuotChoi > 1) {
+        SoLuotChoi--;
+        seconds = maxSeconds;
+      } else {
+        timer?.cancel();
+        addHS();
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Kết thúc trò chơi'),
+                content: Text('Số điểm của bạn: ${SoDiem}'),
+                actions: <Widget>[
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ManHinhChinh(email: email.toString()),
+                          ),
+                        );
+                      },
+                      child: Text('Màn hình chính'))
+                ],
+              );
+            });
+      }
+    }
+    super.setState(fn);
   }
 
   Widget buildTime() {

@@ -7,7 +7,7 @@ class CauHoiObject {
   final String dapanB;
   final String dapanC;
   final String dapanD;
-  final String dapanDung;
+  final int dapanDung;
 
   CauHoiObject(this.idCauHoi, this.idGoiCauHoi, this.idLinhVuc, this.ndCauHoi,
       this.dapanA, this.dapanB, this.dapanC, this.dapanD, this.dapanDung);

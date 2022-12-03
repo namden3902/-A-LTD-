@@ -5,12 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_laptrinhdidong/Object/thongtintaikhoan_object.dart';
 
-// String? TenDangNhap;
-// String? Email;
-// String? SoDienThoai;
-// String? MatKhau;
-// String? MatKhauMoi;
-
 class ThongTinTaiKhoan extends StatefulWidget {
   String email;
   ThongTinTaiKhoan({Key? key, required this.email}) : super(key: key);
