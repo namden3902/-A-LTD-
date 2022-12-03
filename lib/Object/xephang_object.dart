@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LichSuObject {
+class XepHangObject {
   final String? email;
   final int? soCauDung;
   final int? soDiem;
   final String? thoiGian;
 
-  LichSuObject({this.email, this.soCauDung, this.soDiem, this.thoiGian});
+  XepHangObject({this.email, this.soCauDung, this.soDiem, this.thoiGian});
 
-  LichSuObject.fromJson(Map<String, dynamic> json)
+  XepHangObject.fromJson(Map<String, dynamic> json)
       : email = json['email'],
         soCauDung = json['soCauDung'],
         soDiem = json['soDiem'],

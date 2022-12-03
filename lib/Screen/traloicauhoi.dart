@@ -28,12 +28,12 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
       'email': email.toString(),
       'soCauDung': SoCau,
       'soDiem': SoDiem,
-      'thoiGian': Timestamp.now()
+      'thoiGian': now,
     });
   }
 
   //Khai báo gốc
-  int SoCau = 1, SoDiem = 0, SoCredit = 0, SoLuotChoi = 1;
+  int SoCau = 1, SoDiem = 0, SoCredit = 0, SoLuotChoi = 1, SoCauHoiCuaGoi = 25;
   bool NguoiThan = false;
   bool NamMuoi = false;
   bool KhanGia = false;
@@ -41,6 +41,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   bool _isVisibleB = true;
   bool _isVisibleC = true;
   bool _isVisibleD = true;
+  String now = DateTime.now().toString();
 
   final Stream<QuerySnapshot> cauhoi =
       FirebaseFirestore.instance.collection('cauhoi').snapshots();
@@ -67,7 +68,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   late int? idLinhVuc;
   final String? email;
 
-  var intValue = Random(1).nextInt(2);
+  var intValue = Random().nextInt(1);
 
   _TraLoiCauHoi({this.TenLV, this.idLinhVuc, this.email});
   @override
@@ -83,11 +84,19 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     } else {
       id = 4;
     }
+    //Lấy id gói câu hỏi
+    int idGoi = 0;
+    if (intValue == 0) {
+      idGoi = 1;
+    }
+    if (idLinhVuc == 1) {
+      idGoi = 2;
+    }
     //Giao diện
     String ndcauhoi = "", dapanA = "", dapanB = "", dapanC = "", dapanD = "";
     int dapanDung = 0;
     return FutureBuilder<List<CauHoiObject>>(
-      future: CauHoiProvider.get(id, 1, SoCau),
+      future: CauHoiProvider.get(id, idGoi, SoCau),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<CauHoiObject> CauHoi = snapshot.data!;
@@ -566,14 +575,21 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                       buildTimer(),
                       OutlinedButton(
                         onPressed: () {
-                          SoCau = SoCau + 1;
-                          seconds = maxSeconds;
-                          setState(() {
-                            _isVisibleA = true;
-                            _isVisibleB = true;
-                            _isVisibleC = true;
-                            _isVisibleD = true;
-                          });
+                          if (SoCau == 25) {
+                            final snackBar = SnackBar(
+                                content: Text('Đây đã là câu hỏi cuối cùng !'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else {
+                            SoCau = SoCau + 1;
+                            seconds = maxSeconds;
+                            setState(() {
+                              _isVisibleA = true;
+                              _isVisibleB = true;
+                              _isVisibleC = true;
+                              _isVisibleD = true;
+                            });
+                          }
                         },
                         child: Icon(
                           Icons.skip_next,
@@ -603,6 +619,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     if (seconds == 1) {
       if (SoLuotChoi > 1) {
         SoLuotChoi--;
+        SoCau++;
         seconds = maxSeconds;
       } else {
         timer?.cancel();

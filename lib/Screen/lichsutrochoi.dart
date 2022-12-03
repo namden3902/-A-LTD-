@@ -48,16 +48,16 @@ class _LichSuTroChoi extends State<LichSuTroChoi> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 title: Text(
-                  LS[index].email.toString(),
+                  'Thời gian chơi: ' + LS[index].thoiGian.toString(),
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 subtitle: Text(
-                  LS[index].soCauDung.toString(),
+                  'Số câu trả lời: ' + LS[index].soCauDung.toString(),
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 trailing: Text(
                   LS[index].soDiem.toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               );
             },
