@@ -21,6 +21,8 @@ class TraLoiCauHoi extends StatefulWidget {
 }
 
 class _TraLoiCauHoi extends State<TraLoiCauHoi> {
+  static List<String> _CauHoi = [];
+  int dapanDung = 0;
   CollectionReference lichSuALL =
       FirebaseFirestore.instance.collection('lishsuall');
   Future<void> addHS() {
@@ -73,6 +75,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   _TraLoiCauHoi({this.TenLV, this.idLinhVuc, this.email});
   @override
   Widget build(BuildContext context) {
+    _CauHoi = [];
     //Lấy id lĩnh vự
     int id;
     if (idLinhVuc == 1) {
@@ -92,11 +95,12 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     if (idLinhVuc == 1) {
       idGoi = 2;
     }
+
     //Giao diện
     String ndcauhoi = "", dapanA = "", dapanB = "", dapanC = "", dapanD = "";
-    int dapanDung = 0;
+
     return FutureBuilder<List<CauHoiObject>>(
-      future: CauHoiProvider.get(id, idGoi, SoCau),
+      future: CauHoiProvider.get(id, 1, SoCau),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<CauHoiObject> CauHoi = snapshot.data!;
@@ -106,6 +110,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
           dapanC = CauHoi[0].dapanC;
           dapanD = CauHoi[0].dapanD;
           dapanDung = CauHoi[0].dapanDung;
+          _CauHoi.add(dapanA);
+          _CauHoi.add(dapanB);
+          _CauHoi.add(dapanC);
+          _CauHoi.add(dapanD);
         }
         return WillPopScope(
             child: Scaffold(
@@ -221,7 +229,62 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           child: Visibility(
                         visible: _isVisibleA,
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (dapanA.toString() == _CauHoi[dapanDung - 1]) {
+                              SoCau++;
+                              SoDiem += 10;
+                              setState(() {
+                                setState(() {
+                                  _isVisibleA = true;
+                                  _isVisibleB = true;
+                                  _isVisibleC = true;
+                                  _isVisibleD = true;
+                                });
+                              });
+                            } else {
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
+                                SoCau++;
+                                setState(() {
+                                  setState(() {
+                                    _isVisibleA = true;
+                                    _isVisibleB = true;
+                                    _isVisibleC = true;
+                                    _isVisibleD = true;
+                                  });
+                                });
+                              }
+                              if (SoLuotChoi == 0) {
+                                timer?.cancel();
+                                addHS();
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Kết thúc trò chơi'),
+                                        content:
+                                            Text('Số điểm của bạn: ${SoDiem}'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ManHinhChinh(
+                                                            email: email
+                                                                .toString()),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text('Màn hình chính'))
+                                        ],
+                                      );
+                                    });
+                              }
+                            }
+                          },
                           child: Text(
                             dapanA,
                             style: TextStyle(color: Colors.white),
@@ -240,7 +303,62 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           child: Visibility(
                         visible: _isVisibleB,
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (dapanB.toString() == _CauHoi[dapanDung - 1]) {
+                              SoCau++;
+                              SoDiem += 10;
+                              setState(() {
+                                setState(() {
+                                  _isVisibleA = true;
+                                  _isVisibleB = true;
+                                  _isVisibleC = true;
+                                  _isVisibleD = true;
+                                });
+                              });
+                            } else {
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
+                                SoCau++;
+                                setState(() {
+                                  setState(() {
+                                    _isVisibleA = true;
+                                    _isVisibleB = true;
+                                    _isVisibleC = true;
+                                    _isVisibleD = true;
+                                  });
+                                });
+                              }
+                              if (SoLuotChoi == 0) {
+                                timer?.cancel();
+                                addHS();
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Kết thúc trò chơi'),
+                                        content:
+                                            Text('Số điểm của bạn: ${SoDiem}'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ManHinhChinh(
+                                                            email: email
+                                                                .toString()),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text('Màn hình chính'))
+                                        ],
+                                      );
+                                    });
+                              }
+                            }
+                          },
                           child: Text(
                             dapanB,
                             style: TextStyle(color: Colors.white),
@@ -259,7 +377,62 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           child: Visibility(
                         visible: _isVisibleC,
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (dapanC.toString() == _CauHoi[dapanDung - 1]) {
+                              SoCau++;
+                              SoDiem += 10;
+                              setState(() {
+                                setState(() {
+                                  _isVisibleA = true;
+                                  _isVisibleB = true;
+                                  _isVisibleC = true;
+                                  _isVisibleD = true;
+                                });
+                              });
+                            } else {
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
+                                SoCau++;
+                                setState(() {
+                                  setState(() {
+                                    _isVisibleA = true;
+                                    _isVisibleB = true;
+                                    _isVisibleC = true;
+                                    _isVisibleD = true;
+                                  });
+                                });
+                              }
+                              if (SoLuotChoi == 0) {
+                                timer?.cancel();
+                                addHS();
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Kết thúc trò chơi'),
+                                        content:
+                                            Text('Số điểm của bạn: ${SoDiem}'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ManHinhChinh(
+                                                            email: email
+                                                                .toString()),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text('Màn hình chính'))
+                                        ],
+                                      );
+                                    });
+                              }
+                            }
+                          },
                           child: Text(
                             dapanC,
                             style: TextStyle(color: Colors.white),
@@ -278,7 +451,62 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           child: Visibility(
                         visible: _isVisibleD,
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (dapanD.toString() == _CauHoi[dapanDung - 1]) {
+                              SoCau++;
+                              SoDiem += 10;
+                              setState(() {
+                                setState(() {
+                                  _isVisibleA = true;
+                                  _isVisibleB = true;
+                                  _isVisibleC = true;
+                                  _isVisibleD = true;
+                                });
+                              });
+                            } else {
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
+                                SoCau++;
+                                setState(() {
+                                  setState(() {
+                                    _isVisibleA = true;
+                                    _isVisibleB = true;
+                                    _isVisibleC = true;
+                                    _isVisibleD = true;
+                                  });
+                                });
+                              }
+                              if (SoLuotChoi == 0) {
+                                timer?.cancel();
+                                addHS();
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Kết thúc trò chơi'),
+                                        content:
+                                            Text('Số điểm của bạn: ${SoDiem}'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ManHinhChinh(
+                                                            email: email
+                                                                .toString()),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text('Màn hình chính'))
+                                        ],
+                                      );
+                                    });
+                              }
+                            }
+                          },
                           child: Text(
                             dapanD,
                             style: TextStyle(color: Colors.white),
@@ -533,9 +761,9 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                                 TextStyle(color: Colors.white),
                                             textAlign: TextAlign.center),
                                         content: Text(
-                                          'B',
+                                          _CauHoi[dapanDung - 1],
                                           style: TextStyle(
-                                              fontSize: 100,
+                                              fontSize: 30,
                                               color: Colors.white),
                                           textAlign: TextAlign.center,
                                         ),
@@ -648,6 +876,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
             });
       }
     }
+
     super.setState(fn);
   }
 
