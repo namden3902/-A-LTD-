@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doan_laptrinhdidong/Object/thongtintaikhoan_object.dart';
+import 'package:doan_laptrinhdidong/Provider/thongtintaikhoan_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +19,7 @@ class _DangKy extends State<DangKy> {
   TextEditingController txtPhone = TextEditingController();
   TextEditingController txtPass = TextEditingController();
   TextEditingController txtRWPass = TextEditingController();
+  List<ThongTinObject> TT = [];
   final _auth = FirebaseAuth.instance;
   Future<void> addUser() {
     // Call the user's CollectionReference to add a new user
@@ -202,6 +205,22 @@ class _DangKy extends State<DangKy> {
                   ),
                   onPressed: () async {
                     try {
+                      //Note : Phaanf kiem tra validate cua ktpm
+                      if (txtUsername.text == "") {
+                        final snackBar = SnackBar(
+                            content: Text('Ban chua nhap ten dang nhap'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        List<ThongTinObject> TT = [];
+                        TT =
+                            ThongTinProvider.getUsername(txtUsername.toString())
+                                as List<ThongTinObject>;
+                        if (TT.length != 0) {
+                          final snackBar = SnackBar(
+                              content: Text('Ten dang nhap da ton tai'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      }
                       final newUser = _auth.createUserWithEmailAndPassword(
                           email: txtEmail.text, password: txtPass.text);
                       if (txtPass.text == txtRWPass.text) {
