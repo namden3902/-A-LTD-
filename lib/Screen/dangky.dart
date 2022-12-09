@@ -10,8 +10,6 @@ class DangKy extends StatefulWidget {
   State<DangKy> createState() => _DangKy();
 }
 
-int Credit = 100;
-
 class _DangKy extends State<DangKy> {
   CollectionReference usERS = FirebaseFirestore.instance.collection('users');
   TextEditingController txtEmail = TextEditingController();
@@ -19,8 +17,21 @@ class _DangKy extends State<DangKy> {
   TextEditingController txtPhone = TextEditingController();
   TextEditingController txtPass = TextEditingController();
   TextEditingController txtRWPass = TextEditingController();
-  List<ThongTinObject> TT = [];
+  bool dieuKien = true;
   final _auth = FirebaseAuth.instance;
+  List<ThongTinObject> thongTin = [];
+  void _loadThongTin() async {
+    final data = await ThongTinProvider.getData();
+    setState(() {});
+    thongTin = data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThongTin();
+  }
+
   Future<void> addUser() {
     // Call the user's CollectionReference to add a new user
     return usERS
@@ -28,7 +39,6 @@ class _DangKy extends State<DangKy> {
           'email': txtEmail.text,
           'phone': txtPhone.text,
           'username': txtUsername.text,
-          'credit': Credit,
         })
         .then((value) => Navigator.pop(context, 'Đăng ký thành công'))
         .catchError(
@@ -205,34 +215,94 @@ class _DangKy extends State<DangKy> {
                   ),
                   onPressed: () async {
                     try {
-                      //Note : Phaanf kiem tra validate cua ktpm
+                      //Kiểm tra ô tên đăng nhập có để trống hay không ?
                       if (txtUsername.text == "") {
                         final snackBar = SnackBar(
-                            content: Text('Ban chua nhap ten dang nhap'));
+                            content: Text('Bạn chưa nhập tên đăng nhập'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } else {
-                        List<ThongTinObject> TT = [];
-                        TT =
-                            ThongTinProvider.getUsername(txtUsername.toString())
-                                as List<ThongTinObject>;
-                        if (TT.length != 0) {
+                        for (int i = 0; i < thongTin.length; i++) {
+                          if (txtUsername.text == thongTin[i].username) {
+                            dieuKien = false;
+                          }
+                        }
+                        if (dieuKien == false) {
                           final snackBar = SnackBar(
-                              content: Text('Ten dang nhap da ton tai'));
+                              content: Text('Tên đăng nhập đã được đăng ký'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          dieuKien = true;
+                        }
+                        return;
+                      }
+                      if (txtEmail.text == "") {
+                        final snackBar = SnackBar(
+                            content: Text('Bạn chưa nhập địa chỉ email'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        return;
+                      } else {
+                        for (int i = 0; i < thongTin.length; i++) {
+                          if (txtEmail.text == thongTin[i].email) {
+                            dieuKien = false;
+                          }
+                        }
+                        if (dieuKien == false) {
+                          final snackBar =
+                              SnackBar(content: Text('Email đã được đăng ký'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          dieuKien = true;
+                          return;
                         }
                       }
-                      final newUser = _auth.createUserWithEmailAndPassword(
-                          email: txtEmail.text, password: txtPass.text);
-                      if (txtPass.text == txtRWPass.text) {
-                        if (newUser != null) {
-                          Navigator.pop(context, 'Đăng ký thành công');
-                          addUser();
-                        } else {
+                      if (txtPhone.text == "") {
+                        final snackBar = SnackBar(
+                            content: Text('Bạn chưa nhập số điện thoại'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        return;
+                      } else {
+                        for (int i = 0; i < thongTin.length; i++) {
+                          if (txtPhone.text == thongTin[i].phone) {
+                            dieuKien = false;
+                          }
+                        }
+                        if (dieuKien == false) {
                           final snackBar = SnackBar(
-                              content: Text('Tài khoản này đã tồn tại'));
+                              content: Text('Số điện thoại đã được đăng ký'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          dieuKien = true;
+                          return;
                         }
                       }
+                      if (txtPass.text == "") {
+                        final snackBar =
+                            SnackBar(content: Text('Bạn chưa nhập mật khẩu'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        return;
+                      }
+                      if (txtRWPass.text == "") {
+                        final snackBar = SnackBar(
+                            content: Text('Bạn chưa nhập lại mật khẩu'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        return;
+                      }
+                      if (txtPass.text != txtRWPass.text) {
+                        final snackBar = SnackBar(
+                            content: Text(
+                                'Mật khẩu và nhập lại mật khẩu không trùng khớp với nhau'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        return;
+                      }
+                      // final newUser = _auth.createUserWithEmailAndPassword(
+                      //     email: txtEmail.text, password: txtPass.text);
+                      // if (txtPass.text == txtRWPass.text) {
+                      //   if (newUser != null) {
+                      //     Navigator.pop(context, 'Đăng ký thành công');
+                      //     addUser();
+                      //   } else {
+                      //     final snackBar = SnackBar(
+                      //         content: Text('Tài khoản này đã tồn tại'));
+                      //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      //   }
+                      // }
                     } catch (e) {
                       final snackBar = SnackBar(
                           content:

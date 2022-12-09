@@ -28,7 +28,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   Future<void> addHS() {
     return lichSuALL.add({
       'email': email.toString(),
-      'soCauDung': SoCau,
+      'soCauDung': SoCau--,
       'soDiem': SoDiem,
       'thoiGian': now,
     });

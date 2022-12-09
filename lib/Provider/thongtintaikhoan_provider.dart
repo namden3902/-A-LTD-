@@ -16,12 +16,9 @@ class ThongTinProvider {
     return ThongTin;
   }
 
-  static Future<List<ThongTinObject>> getUsername(String username) async {
+  static Future<List<ThongTinObject>> getData() async {
     List<ThongTinObject> ThongTin = [];
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where('username', isEqualTo: username)
-        .get();
+    final snapshot = await FirebaseFirestore.instance.collection('users').get();
     ThongTin = snapshot.docs
         .map((json) =>
             ThongTinObject.fromJson(json.data() as Map<String, dynamic>))
