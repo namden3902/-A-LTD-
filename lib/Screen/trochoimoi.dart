@@ -93,6 +93,8 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                             MaterialPageRoute(
                                 builder: (context) => TraLoiCauHoi(
                                       TenLinhVuc: TenLinhVuc,
+                                      idLinhVuc: 2,
+                                      email: email,
                                     )));
                       },
                       child: const Text(
@@ -116,6 +118,8 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                             MaterialPageRoute(
                                 builder: (context) => TraLoiCauHoi(
                                       TenLinhVuc: TenLinhVuc,
+                                      idLinhVuc: 3,
+                                      email: email,
                                     )));
                       },
                       child: const Text(
@@ -138,7 +142,8 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TraLoiCauHoi(
-                                      TenLinhVuc: TenLinhVuc,
+                                      idLinhVuc: 4,
+                                      email: email,
                                     )));
                       },
                       child: const Text(
