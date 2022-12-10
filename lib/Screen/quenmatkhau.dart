@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../Object/thongtintaikhoan_object.dart';
+
 class QuenMatKhau extends StatefulWidget {
   @override
   State<QuenMatKhau> createState() => _Quenmatkhau();
@@ -154,16 +156,27 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                     fixedSize: Size(100, 40), //<-- SEE HERE
                   ),
                   onPressed: () async {
-                    try {
-                      final _user =
-                          _auth.sendPasswordResetEmail(email: txtEmail.text);
-                      Navigator.pop(
-                          context, 'Gửi liên kết đặt lại mật khẩu thành công');
-                    } catch (e) {
+                    if (txtEmail.text == "") {
                       final snackBar = SnackBar(
-                          content:
-                              Text('Gửi liên kết đặt lại mật khẩu thất bại'));
+                          content: Text('Bạn chưa nhập địa chỉ email'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else if ((txtEmail.text).indexOf("@gmail.com") == -1) {
+                      final snackBar =
+                          SnackBar(content: Text('Email chưa đúng định dạng'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else {
+                      try {
+                        final _user = await _auth.sendPasswordResetEmail(
+                            email: txtEmail.text);
+                        Navigator.pop(context,
+                            'Gửi liên kết đặt lại mật khẩu thành công');
+                      } catch (e) {
+                        final snackBar =
+                            SnackBar(content: Text('Email chưa được đăng ký'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
                     }
                   },
                   child: const Text(

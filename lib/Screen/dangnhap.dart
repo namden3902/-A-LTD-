@@ -137,16 +137,11 @@ class _DangNhap extends State<DangNhap> {
                                           )));
                               // txtEmail.clear();
                               // txtPass.clear();
-                            } else {
-                              final snackBar = SnackBar(
-                                  content: Text('Email hoặc mật khẩu ko đúng'));
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
                             }
                           });
                         } catch (e) {
-                          final snackBar =
-                              SnackBar(content: Text('Lỗi kết nối đến server'));
+                          final snackBar = SnackBar(
+                              content: Text('Email hoặc mật khẩu không đúng'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       }

@@ -162,6 +162,7 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                               return AlertDialog(
                                 title: Text('Đổi mật khẩu'),
                                 content: TextField(
+                                  obscureText: true,
                                   style: TextStyle(color: Colors.black),
                                   decoration: InputDecoration(
                                     labelText: 'Mật khẩu',
@@ -177,11 +178,30 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                      onPressed: () {
-                                        final user = _auth?.updatePassword(
-                                            txtMatKhauMoi.text);
-                                        txtMatKhauMoi.clear();
-                                        Navigator.pop(context);
+                                      onPressed: () async {
+                                        if (txtMatKhauMoi.text == "") {
+                                          final snackBar = SnackBar(
+                                              content: Text(
+                                                  'Bạn chưa nhập mật khẩu'));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                          return;
+                                        } else if (txtMatKhauMoi.text.length <
+                                                8 ||
+                                            txtMatKhauMoi.text.length > 16) {
+                                          final snackBar = SnackBar(
+                                              content: Text(
+                                                  'Mật khẩu phải có ít nhất 8 kí tự và không quá 16 kí tự'));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                          return;
+                                        } else {
+                                          final user =
+                                              await _auth?.updatePassword(
+                                                  txtMatKhauMoi.text);
+                                          txtMatKhauMoi.clear();
+                                          Navigator.pop(context);
+                                        }
                                       },
                                       child: Text('Đổi mật khẩu'))
                                 ],

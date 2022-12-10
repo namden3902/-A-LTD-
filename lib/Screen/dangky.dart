@@ -214,100 +214,112 @@ class _DangKy extends State<DangKy> {
                     fixedSize: Size(100, 40), //<-- SEE HERE
                   ),
                   onPressed: () async {
-                    try {
-                      //Kiểm tra ô tên đăng nhập có để trống hay không ?
-                      if (txtUsername.text == "") {
-                        final snackBar = SnackBar(
-                            content: Text('Bạn chưa nhập tên đăng nhập'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      } else {
-                        for (int i = 0; i < thongTin.length; i++) {
-                          if (txtUsername.text == thongTin[i].username) {
-                            dieuKien = false;
-                          }
-                        }
-                        if (dieuKien == false) {
-                          final snackBar = SnackBar(
-                              content: Text('Tên đăng nhập đã được đăng ký'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          dieuKien = true;
-                        }
-                        return;
-                      }
-                      if (txtEmail.text == "") {
-                        final snackBar = SnackBar(
-                            content: Text('Bạn chưa nhập địa chỉ email'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        return;
-                      } else {
-                        for (int i = 0; i < thongTin.length; i++) {
-                          if (txtEmail.text == thongTin[i].email) {
-                            dieuKien = false;
-                          }
-                        }
-                        if (dieuKien == false) {
-                          final snackBar =
-                              SnackBar(content: Text('Email đã được đăng ký'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          dieuKien = true;
-                          return;
-                        }
-                      }
-                      if (txtPhone.text == "") {
-                        final snackBar = SnackBar(
-                            content: Text('Bạn chưa nhập số điện thoại'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        return;
-                      } else {
-                        for (int i = 0; i < thongTin.length; i++) {
-                          if (txtPhone.text == thongTin[i].phone) {
-                            dieuKien = false;
-                          }
-                        }
-                        if (dieuKien == false) {
-                          final snackBar = SnackBar(
-                              content: Text('Số điện thoại đã được đăng ký'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          dieuKien = true;
-                          return;
-                        }
-                      }
-                      if (txtPass.text == "") {
-                        final snackBar =
-                            SnackBar(content: Text('Bạn chưa nhập mật khẩu'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        return;
-                      }
-                      if (txtRWPass.text == "") {
-                        final snackBar = SnackBar(
-                            content: Text('Bạn chưa nhập lại mật khẩu'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        return;
-                      }
-                      if (txtPass.text != txtRWPass.text) {
-                        final snackBar = SnackBar(
-                            content: Text(
-                                'Mật khẩu và nhập lại mật khẩu không trùng khớp với nhau'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        return;
-                      }
-                      // final newUser = _auth.createUserWithEmailAndPassword(
-                      //     email: txtEmail.text, password: txtPass.text);
-                      // if (txtPass.text == txtRWPass.text) {
-                      //   if (newUser != null) {
-                      //     Navigator.pop(context, 'Đăng ký thành công');
-                      //     addUser();
-                      //   } else {
-                      //     final snackBar = SnackBar(
-                      //         content: Text('Tài khoản này đã tồn tại'));
-                      //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      //   }
-                      // }
-                    } catch (e) {
+                    if (txtUsername.text == "") {
                       final snackBar = SnackBar(
-                          content:
-                              Text('Không ổn rồi Đại Vương ơi! Có lỗi.......'));
+                          content: Text('Bạn chưa nhập tên đăng nhập '));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else {
+                      for (int i = 0; i < thongTin.length; i++) {
+                        if (txtUsername.text == thongTin[i].username) {
+                          dieuKien = false;
+                        }
+                      }
+                      if (dieuKien == false) {
+                        final snackBar = SnackBar(
+                            content: Text('Tên đăng nhập đã được đăng ký'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        dieuKien = true;
+                        return;
+                      }
+                    }
+                    if (txtEmail.text == "") {
+                      final snackBar = SnackBar(
+                          content: Text('Bạn chưa nhập địa chỉ email'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else if ((txtEmail.text).indexOf("@gmail.com") == -1) {
+                      final snackBar =
+                          SnackBar(content: Text('Email chưa đúng định dạng'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else {
+                      for (int i = 0; i < thongTin.length; i++) {
+                        if (txtEmail.text == thongTin[i].email) {
+                          dieuKien = false;
+                        }
+                      }
+                      if (dieuKien == false) {
+                        final snackBar =
+                            SnackBar(content: Text('Email đã được đăng ký'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        dieuKien = true;
+                        return;
+                      }
+                    }
+                    if (txtPhone.text == "") {
+                      final snackBar = SnackBar(
+                          content: Text('Bạn chưa nhập số điện thoại'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else if (txtPhone.text.length != 10) {
+                      final snackBar = SnackBar(
+                          content: Text('Số điện thoại chưa đúng định dạng'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else {
+                      for (int i = 0; i < thongTin.length; i++) {
+                        if (txtPhone.text == thongTin[i].phone) {
+                          dieuKien = false;
+                        }
+                      }
+                      if (dieuKien == false) {
+                        final snackBar = SnackBar(
+                            content: Text('Số điện thoại đã được đăng ký'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        dieuKien = true;
+                        return;
+                      }
+                    }
+                    if (txtPass.text == "") {
+                      final snackBar =
+                          SnackBar(content: Text('Bạn chưa nhập mật khẩu'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    }
+                    if (txtPass.text.length < 8 || txtPass.text.length > 16) {
+                      final snackBar = SnackBar(
+                          content: Text(
+                              'Mật khẩu phải có ít nhất 8 kí tự và không quá 16 kí tự'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    }
+                    if (txtRWPass.text == "") {
+                      final snackBar =
+                          SnackBar(content: Text('Bạn chưa nhập lại mật khẩu'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    }
+                    if (txtPass.text != txtRWPass.text) {
+                      final snackBar = SnackBar(
+                          content: Text(
+                              'Mật khẩu và nhập lại mật khẩu không trùng khớp với nhau'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    } else {
+                      try {
+                        final newUser =
+                            await _auth.createUserWithEmailAndPassword(
+                                email: txtEmail.text, password: txtPass.text);
+                        if (newUser != null) {
+                          Navigator.pop(context, 'Đăng ký thành công');
+                          addUser();
+                        }
+                      } catch (e) {
+                        final snackBar =
+                            SnackBar(content: Text('Email đã tồn tại'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
                     }
                   },
                   child: const Text(
