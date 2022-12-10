@@ -230,6 +230,13 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                         visible: _isVisibleA,
                         child: OutlinedButton(
                           onPressed: () {
+                            if (dapanA.toString() == "") {
+                              final snackBar =
+                                  SnackBar(content: Text('Chưa có dữ liệu'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
                             if (dapanA.toString() == _CauHoi[dapanDung - 1]) {
                               SoCau++;
                               SoDiem += 10;
@@ -304,6 +311,13 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                         visible: _isVisibleB,
                         child: OutlinedButton(
                           onPressed: () {
+                            if (dapanB.toString() == "") {
+                              final snackBar =
+                                  SnackBar(content: Text('Chưa có dữ liệu'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
                             if (dapanB.toString() == _CauHoi[dapanDung - 1]) {
                               SoCau++;
                               SoDiem += 10;
@@ -378,6 +392,13 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                         visible: _isVisibleC,
                         child: OutlinedButton(
                           onPressed: () {
+                            if (dapanC.toString() == "") {
+                              final snackBar =
+                                  SnackBar(content: Text('Chưa có dữ liệu'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
                             if (dapanC.toString() == _CauHoi[dapanDung - 1]) {
                               SoCau++;
                               SoDiem += 10;
@@ -452,6 +473,13 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                         visible: _isVisibleD,
                         child: OutlinedButton(
                           onPressed: () {
+                            if (dapanD.toString() == "") {
+                              final snackBar =
+                                  SnackBar(content: Text('Chưa có dữ liệu'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
                             if (dapanD.toString() == _CauHoi[dapanDung - 1]) {
                               SoCau++;
                               SoDiem += 10;
