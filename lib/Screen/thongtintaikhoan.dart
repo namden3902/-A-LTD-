@@ -108,7 +108,7 @@ class _ThongTinTaiKhoan extends State<ThongTinTaiKhoan> {
                               },
                               decoration: InputDecoration(
                                 hintText:
-                                    temp1 == 0 ? thongTin[0].username : " ",
+                                    temp1 == 0 ? (thongTin[0].username) : " ",
                                 hintStyle: const TextStyle(color: Colors.white),
                                 prefixIcon: const Icon(Icons.person,
                                     color: Colors.white),
@@ -141,10 +141,11 @@ class _ThongTinTaiKhoan extends State<ThongTinTaiKhoan> {
                               readOnly: false,
                               style: const TextStyle(color: Colors.white),
                               onTap: () {
-                                temp3 = 1;
+                                temp1 = 1;
                               },
                               decoration: InputDecoration(
-                                hintText: temp3 == 0 ? thongTin[0].phone : " ",
+                                hintText:
+                                    temp1 == 0 ? (thongTin[0].phone) : " ",
                                 hintStyle: const TextStyle(color: Colors.white),
                                 prefixIcon: const Icon(Icons.phone,
                                     color: Colors.white),
@@ -156,19 +157,42 @@ class _ThongTinTaiKhoan extends State<ThongTinTaiKhoan> {
                           height: 80,
                           child: OutlinedButton(
                             onPressed: () async {
-                              try {
-                                querySnapshots = await user.get();
-                                for (var snapshot in querySnapshots.docs) {
-                                  if (email == snapshot['email']) {
-                                    docID = snapshot.id;
-                                  }
-                                }
-                                updateUser(docID);
-                              } catch (e) {
-                                final snackBar =
-                                    SnackBar(content: Text('Có lỗi xảy ra !'));
+                              if (txtName.text == "") {
+                                final snackBar = SnackBar(
+                                    content:
+                                        Text('Vui lòng nhập tên đăng nhập '));
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
+                                return;
+                              } else if (txtPhone.text == "") {
+                                final snackBar = SnackBar(
+                                    content:
+                                        Text('Vui lòng nhập số điện thoại'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                return;
+                              } else if (txtPhone.text.length != 10) {
+                                final snackBar = SnackBar(
+                                    content: Text(
+                                        'Số điện thoại chưa đúng định dạng'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                return;
+                              } else {
+                                try {
+                                  querySnapshots = await user.get();
+                                  for (var snapshot in querySnapshots.docs) {
+                                    if (email == snapshot['email']) {
+                                      docID = snapshot.id;
+                                    }
+                                  }
+                                  updateUser(docID);
+                                } catch (e) {
+                                  final snackBar = SnackBar(
+                                      content: Text('Có lỗi xảy ra !'));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
                               }
                             },
                             child: const Text(
