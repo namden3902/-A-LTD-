@@ -162,6 +162,7 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                         showDialog(
                             context: context,
                             builder: (context) {
+                              txtMatKhauMoi.clear();
                               return AlertDialog(
                                 title: Text('Đổi mật khẩu'),
                                 content: TextField(
@@ -210,8 +211,9 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                                           final user =
                                               await _auth?.updatePassword(
                                                   txtMatKhauMoi.text);
-                                          txtMatKhauMoi.clear();
+
                                           Navigator.pop(context);
+                                          txtMatKhauMoi.clear();
                                         }
                                       },
                                       child: Text('Đổi mật khẩu'))

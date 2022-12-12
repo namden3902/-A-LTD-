@@ -176,6 +176,14 @@ class _ThongTinTaiKhoan extends State<ThongTinTaiKhoan> {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                                 return;
+                              } else if (txtPhone.text == thongTin[0].phone &&
+                                  txtName.text == thongTin[0].username) {
+                                final snackBar = SnackBar(
+                                    content: Text(
+                                        'Không thể cập nhập vì thông tin không có sự thay đổi !'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                return;
                               } else {
                                 try {
                                   querySnapshots = await user.get();
@@ -185,6 +193,11 @@ class _ThongTinTaiKhoan extends State<ThongTinTaiKhoan> {
                                     }
                                   }
                                   updateUser(docID);
+                                  final snackBar = SnackBar(
+                                      content: Text(
+                                          'Cập nhập thông tin thành công !'));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 } catch (e) {
                                   final snackBar = SnackBar(
                                       content: Text('Có lỗi xảy ra !'));
