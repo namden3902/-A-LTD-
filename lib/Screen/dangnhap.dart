@@ -134,6 +134,7 @@ class _DangNhap extends State<DangNhap> {
                                   MaterialPageRoute(
                                       builder: (context) => ManHinhChinh(
                                             email: txtEmail.text,
+                                            matKhau: txtPass.text,
                                           )));
                               // txtEmail.clear();
                               // txtPass.clear();

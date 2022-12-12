@@ -10,15 +10,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ManHinhChinh extends StatefulWidget {
-  String email;
-  ManHinhChinh({Key? key, required this.email}) : super(key: key);
+  final String email;
+  final String? matKhau;
+  ManHinhChinh({Key? key, required this.email, this.matKhau}) : super(key: key);
   @override
-  State<ManHinhChinh> createState() => _ManHinhChinh(email: email);
+  State<ManHinhChinh> createState() =>
+      _ManHinhChinh(email: email, matKhau: matKhau);
 }
 
 class _ManHinhChinh extends State<ManHinhChinh> {
   String email;
-  _ManHinhChinh({Key? key, required this.email});
+  String? matKhau;
+  _ManHinhChinh({Key? key, required this.email, this.matKhau});
   final _auth = FirebaseAuth.instance.currentUser;
   final txtMatKhauMoi = TextEditingController();
   @override
@@ -187,11 +190,19 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                                               .showSnackBar(snackBar);
                                           return;
                                         } else if (txtMatKhauMoi.text.length <
-                                                8 ||
+                                                6 ||
                                             txtMatKhauMoi.text.length > 16) {
                                           final snackBar = SnackBar(
                                               content: Text(
-                                                  'Mật khẩu phải có ít nhất 8 kí tự và không quá 16 kí tự'));
+                                                  'Mật khẩu phải có ít nhất 6 kí tự và không quá 16 kí tự'));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                          return;
+                                        } else if (txtMatKhauMoi.text ==
+                                            matKhau.toString()) {
+                                          final snackBar = SnackBar(
+                                              content: Text(
+                                                  'Mật khẩu mới trùng với mật khẩu hiện tại'));
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBar);
                                           return;

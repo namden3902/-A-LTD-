@@ -11,9 +11,7 @@ class ThongTinTaiKhoan extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _ThongTinTaiKhoan(
-      email: email,
-    );
+    return _ThongTinTaiKhoan(email: email);
   }
 }
 
