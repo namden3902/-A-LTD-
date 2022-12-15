@@ -1,3 +1,4 @@
+import 'package:doan_laptrinhdidong/Screen/banbe.dart';
 import 'package:doan_laptrinhdidong/Screen/dangnhap.dart';
 
 import 'lichsutrochoi.dart';
@@ -10,7 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ManHinhChinh extends StatefulWidget {
-  final String email;
+  final String? email;
   final String? matKhau;
   ManHinhChinh({Key? key, required this.email, this.matKhau}) : super(key: key);
   @override
@@ -19,7 +20,7 @@ class ManHinhChinh extends StatefulWidget {
 }
 
 class _ManHinhChinh extends State<ManHinhChinh> {
-  String email;
+  String? email;
   String? matKhau;
   _ManHinhChinh({Key? key, required this.email, this.matKhau});
   final _auth = FirebaseAuth.instance.currentUser;
@@ -144,6 +145,30 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                       },
                       child: const Text(
                         'Bảng xếp hạng',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.white, width: 3),
+                        fixedSize: Size(280, 40),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8)), //<-- SEE HERE
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BanBe(
+                                      email: email,
+                                    )));
+                      },
+                      child: const Text(
+                        'Bạn bè',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

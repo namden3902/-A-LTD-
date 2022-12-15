@@ -6,7 +6,7 @@ import '../Object/thongtintaikhoan_object.dart';
 import '../Provider/thongtintaikhoan_provider.dart';
 
 class ThongTinTaiKhoan extends StatefulWidget {
-  String email;
+  String? email;
   ThongTinTaiKhoan({Key? key, required this.email}) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class ThongTinTaiKhoan extends StatefulWidget {
 }
 
 class _ThongTinTaiKhoan extends State<ThongTinTaiKhoan> {
-  String email;
+  String? email;
   _ThongTinTaiKhoan({Key? key, required this.email});
   TextEditingController txtName = TextEditingController();
   TextEditingController txtEmail = TextEditingController();
@@ -47,7 +47,7 @@ class _ThongTinTaiKhoan extends State<ThongTinTaiKhoan> {
   // ignore: dead_code
   Widget build(BuildContext context) {
     return FutureBuilder<List<ThongTinObject>>(
-        future: ThongTinProvider.get(email),
+        future: ThongTinProvider.get(email!),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<ThongTinObject> thongTin = snapshot.data!;
