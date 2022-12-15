@@ -3,7 +3,7 @@ import 'package:doan_laptrinhdidong/Screen/dangnhap.dart';
 import 'lichsutrochoi.dart';
 import 'thongtintaikhoan.dart';
 import 'trochoimoi.dart';
-// import 'xephang.dart';
+import 'xephang.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -139,8 +139,8 @@ class _ManHinhChinh extends State<ManHinhChinh> {
                                 BorderRadius.circular(8)), //<-- SEE HERE
                       ),
                       onPressed: () {
-                        // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (context) => XepHang()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => XepHang()));
                       },
                       child: const Text(
                         'Bảng xếp hạng',
