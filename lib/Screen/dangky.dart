@@ -238,7 +238,7 @@ class _DangKy extends State<DangKy> {
                           content: Text('Bạn chưa nhập địa chỉ email'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       return;
-                    } else if ((txtEmail.text).indexOf("@gmail.com") == -1) {
+                    } else if ((txtEmail.text).indexOf("@") == -1) {
                       final snackBar =
                           SnackBar(content: Text('Email chưa đúng định dạng'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);

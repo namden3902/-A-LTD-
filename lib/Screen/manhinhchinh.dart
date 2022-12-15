@@ -1,4 +1,4 @@
-import 'package:doan_laptrinhdidong/Screen/banbe.dart';
+import 'package:doan_laptrinhdidong/Screen/BanBe/banbe.dart';
 import 'package:doan_laptrinhdidong/Screen/dangnhap.dart';
 
 import 'lichsutrochoi.dart';

@@ -31,7 +31,7 @@ class ThongTinProvider {
   static Future<List<ThongTinObject>> banBe(String email) async {
     List<ThongTinObject> ThongTin = [];
     final snapshot = await FirebaseFirestore.instance
-        .collection('user')
+        .collection('users')
         .where('email', isNotEqualTo: email)
         .get();
     ThongTin = snapshot.docs

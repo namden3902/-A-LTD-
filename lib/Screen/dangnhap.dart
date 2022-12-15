@@ -111,7 +111,7 @@ class _DangNhap extends State<DangNhap> {
                       }
                       //Validate của kiểm thử phần mmềm
                       String temp = txtEmail.toString();
-                      if (temp.indexOf("@gmail.com") == -1) {
+                      if (temp.indexOf("@") == -1) {
                         final snackBar = SnackBar(
                             content: Text(
                                 'Bạn chưa nhập đúng định dạng của một email !'));

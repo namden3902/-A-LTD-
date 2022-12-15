@@ -75,75 +75,6 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                 SizedBox(
                   height: 10,
                 ),
-                // SizedBox(
-                //   width: 350,
-                //   height: 50,
-                //   child: TextField(
-                //     keyboardType: TextInputType.number,
-                //     style: TextStyle(color: Colors.white),
-                //     decoration: InputDecoration(
-                //         labelText: 'Số điện thoại',
-                //         labelStyle: TextStyle(
-                //           color: Colors.white, //<-- SEE HERE
-                //         ),
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(20),
-                //             borderSide:
-                //                 BorderSide(color: Colors.white, width: 3)),
-                //         prefixIcon: Icon(
-                //           Icons.phone,
-                //           color: Colors.white,
-                //         )),
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // SizedBox(
-                //   width: 350,
-                //   height: 50,
-                //   child: TextField(
-                //     obscureText: true,
-                //     style: TextStyle(color: Colors.white),
-                //     decoration: InputDecoration(
-                //         labelText: 'Mật khẩu mới',
-                //         labelStyle: TextStyle(
-                //           color: Colors.white, //<-- SEE HERE
-                //         ),
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(20),
-                //             borderSide:
-                //                 BorderSide(color: Colors.white, width: 3)),
-                //         prefixIcon: Icon(
-                //           Icons.password,
-                //           color: Colors.white,
-                //         )),
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // SizedBox(
-                //   width: 350,
-                //   height: 50,
-                //   child: TextField(
-                //     obscureText: true,
-                //     style: TextStyle(color: Colors.white),
-                //     decoration: InputDecoration(
-                //         labelText: 'Nhập lại mật khẩu',
-                //         labelStyle: TextStyle(
-                //           color: Colors.white, //<-- SEE HERE
-                //         ),
-                //         enabledBorder: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(20),
-                //             borderSide:
-                //                 BorderSide(color: Colors.white, width: 3)),
-                //         prefixIcon: Icon(
-                //           Icons.password,
-                //           color: Colors.white,
-                //         )),
-                //   ),
-                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -161,7 +92,7 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                           content: Text('Bạn chưa nhập địa chỉ email'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       return;
-                    } else if ((txtEmail.text).indexOf("@gmail.com") == -1) {
+                    } else if ((txtEmail.text).indexOf("@") == -1) {
                       final snackBar =
                           SnackBar(content: Text('Email chưa đúng định dạng'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);

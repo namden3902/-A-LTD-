@@ -1,4 +1,6 @@
-import 'package:doan_laptrinhdidong/Screen/danhsachnguoichoi.dart';
+import 'package:doan_laptrinhdidong/Screen/BanBe/danhsachbanbe.dart';
+import 'package:doan_laptrinhdidong/Screen/BanBe/danhsachnguoichoi.dart';
+import 'package:doan_laptrinhdidong/Screen/BanBe/loimoi.dart';
 import 'package:flutter/material.dart';
 
 class BanBe extends StatefulWidget {
@@ -50,8 +52,8 @@ class _BanBe extends State<BanBe> {
             // child: _widgetOptions.elementAt(_selectedIndex),
             child: TabBarView(
               children: [
-                Icon(Icons.people),
-                Icon(Icons.person_add),
+                DanhSachBB(email: email),
+                LoiMoi(email: email),
                 DanhSach(email: email)
               ],
             ),
