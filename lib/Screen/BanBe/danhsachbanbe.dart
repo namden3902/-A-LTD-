@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_laptrinhdidong/Object/danhsachbb_object.dart';
 import 'package:doan_laptrinhdidong/Provider/danhsachbb_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,21 @@ class DanhSachBB extends StatefulWidget {
 }
 
 class _DanhSachBB extends State<DanhSachBB> {
+  var querySnapshots;
+  var docID;
+  final snackbar = SnackBar(content: Text('Xóa bạn bè thành công !'));
+  final snackbar2 =
+      SnackBar(content: Text('Xóa không thành công bạn bè không thành công !'));
+  CollectionReference banbe = FirebaseFirestore.instance.collection('banbe');
+  Future<void> xoaBanBe(var docID) {
+    return banbe
+        .doc(docID)
+        .delete()
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(snackbar))
+        .catchError(
+            (error) => ScaffoldMessenger.of(context).showSnackBar(snackbar2));
+  }
+
   List<DSBanBeObject> DanhSach = [];
   final String? email;
   _DanhSachBB({required this.email});
@@ -58,7 +74,21 @@ class _DanhSachBB extends State<DanhSachBB> {
                                 child: ListTile(
                               leading: Icon(Icons.person_add),
                               title: Text('Xóa bạn bè'),
-                              onTap: () {},
+                              onTap: () async {
+                                querySnapshots = await banbe.get();
+                                for (var snapshot in querySnapshots.docs) {
+                                  if (email == snapshot['email1']) {
+                                    docID = snapshot.id;
+                                    xoaBanBe(docID);
+                                  }
+                                  if (email == snapshot['email2']) {
+                                    docID = snapshot.id;
+                                    xoaBanBe(docID);
+                                  }
+                                }
+                                setState(() {});
+                                Navigator.pop(context);
+                              },
                             ))
                           ],
                         ));

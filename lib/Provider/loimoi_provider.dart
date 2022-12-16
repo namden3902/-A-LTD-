@@ -14,4 +14,19 @@ class LoiMoiProvider {
         .toList();
     return loiMoi;
   }
+
+  static Future<List<LoiMoiObject>> getLMHT(
+      String emailNM, String emailNN) async {
+    List<LoiMoiObject> loiMoi = [];
+    final snapshot = await FirebaseFirestore.instance
+        .collection('loimoi')
+        .where('emailNN', isEqualTo: emailNN)
+        .where('emailNM', isEqualTo: emailNM)
+        .get();
+    loiMoi = snapshot.docs
+        .map((json) =>
+            LoiMoiObject.fromJson(json.data() as Map<String, dynamic>))
+        .toList();
+    return loiMoi;
+  }
 }

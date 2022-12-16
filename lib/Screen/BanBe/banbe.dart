@@ -21,6 +21,7 @@ class _BanBe extends State<BanBe> {
         appBar: AppBar(
           title: Text(
             'Bạn bè',
+            textAlign: TextAlign.center,
           ),
           bottom: TabBar(
             tabs: [

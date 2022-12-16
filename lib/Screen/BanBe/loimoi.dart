@@ -13,11 +13,26 @@ class LoiMoi extends StatefulWidget {
 
 class _LoiMoi extends State<LoiMoi> {
   final db = FirebaseFirestore.instance;
+  var querySnapshots;
+  var docID;
   List<LoiMoiObject> loiMoi = [];
   CollectionReference banBe = FirebaseFirestore.instance.collection('banbe');
   Future<void> xacNhan(String email1, String email2) {
     return banBe
         .add({'email1': email1.toString(), 'email2': email2.toString()});
+  }
+
+  CollectionReference loiMoiii =
+      FirebaseFirestore.instance.collection('loimoi');
+  final snackbar = SnackBar(content: Text('Thêm bạn bè thành công !'));
+  final snackbar2 = SnackBar(content: Text('Thêm bạn bè không thành công !'));
+  Future<void> xoaLoiMoi(var docID) {
+    return loiMoiii
+        .doc(docID)
+        .delete()
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(snackbar))
+        .catchError(
+            (error) => ScaffoldMessenger.of(context).showSnackBar(snackbar2));
   }
 
   final String? email;
@@ -67,11 +82,36 @@ class _LoiMoi extends State<LoiMoi> {
                                 child: ListTile(
                                     leading: Icon(Icons.person_add),
                                     title: Text('Xác nhận'),
-                                    onTap: () {
+                                    onTap: () async {
                                       xacNhan(email.toString(),
                                           loiMoi[index].emailNM.toString());
                                       xacNhan(loiMoi[index].emailNM.toString(),
                                           email.toString());
+                                      querySnapshots = await loiMoiii.get();
+                                      for (var snapshot
+                                          in querySnapshots.docs) {
+                                        if (email == snapshot['emailNN']) {
+                                          docID = snapshot.id;
+                                        }
+                                      }
+                                      xoaLoiMoi(docID);
+                                      setState(() {});
+                                      Navigator.pop(context);
+                                    })),
+                            PopupMenuItem(
+                                child: ListTile(
+                                    leading: Icon(Icons.person_add),
+                                    title: Text('Xóa lời mời'),
+                                    onTap: () async {
+                                      querySnapshots = await loiMoiii.get();
+                                      for (var snapshot
+                                          in querySnapshots.docs) {
+                                        if (email == snapshot['emailNN']) {
+                                          docID = snapshot.id;
+                                        }
+                                      }
+                                      xoaLoiMoi(docID);
+                                      setState(() {});
                                       Navigator.pop(context);
                                     }))
                           ],
