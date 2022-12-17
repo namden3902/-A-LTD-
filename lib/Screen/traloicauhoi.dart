@@ -28,14 +28,19 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   Future<void> addHS() {
     return lichSuALL.add({
       'email': email.toString(),
-      'soCauDung': SoCau--,
+      'soCauDung': SoCauDung,
       'soDiem': SoDiem,
       'thoiGian': now,
     });
   }
 
   //Khai báo gốc
-  int SoCau = 1, SoDiem = 0, SoCredit = 0, SoLuotChoi = 1, SoCauHoiCuaGoi = 25;
+  int SoCau = 1,
+      SoDiem = 0,
+      SoCredit = 0,
+      SoLuotChoi = 1,
+      SoCauHoiCuaGoi = 25,
+      SoCauDung = 0;
   bool NguoiThan = false;
   bool NamMuoi = false;
   bool KhanGia = false;
@@ -45,6 +50,34 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   bool _isVisibleC = true;
   bool _isVisibleD = true;
   String now = DateTime.now().toString();
+  List<CauHoiObject> cauHoi = [];
+
+  List<Color> optionsColor1 = [
+    Colors.white,
+  ];
+  List<Color> optionsColor2 = [
+    Colors.white,
+  ];
+  List<Color> optionsColor3 = [
+    Colors.white,
+  ];
+  List<Color> optionsColor4 = [
+    Colors.white,
+  ];
+  resetColors() {
+    optionsColor1 = [
+      Colors.white,
+    ];
+    optionsColor2 = [
+      Colors.white,
+    ];
+    optionsColor3 = [
+      Colors.white,
+    ];
+    optionsColor4 = [
+      Colors.white,
+    ];
+  }
 
   final Stream<QuerySnapshot> cauhoi =
       FirebaseFirestore.instance.collection('cauhoi').snapshots();
@@ -65,6 +98,14 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     startTimer();
   }
 
+  void chuyenCauHoi() {
+    setState(() {
+      _isVisibleA = true;
+      _isVisibleB = true;
+      _isVisibleC = true;
+      _isVisibleD = true;
+    });
+  }
   //Trừ lượt chơi
 
   final String? TenLV;
@@ -239,28 +280,15 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               return;
                             }
                             if (dapanA.toString() == _CauHoi[dapanDung - 1]) {
+                              optionsColor1[0] = Colors.green;
                               SoCau++;
                               SoDiem += 10;
-                              setState(() {
-                                setState(() {
-                                  _isVisibleA = true;
-                                  _isVisibleB = true;
-                                  _isVisibleC = true;
-                                  _isVisibleD = true;
-                                });
-                              });
+                              SoCauDung++;
                             } else {
                               if (SoLuotChoi > 0) {
+                                optionsColor1[0] = Colors.red;
                                 SoLuotChoi--;
                                 SoCau++;
-                                setState(() {
-                                  setState(() {
-                                    _isVisibleA = true;
-                                    _isVisibleB = true;
-                                    _isVisibleC = true;
-                                    _isVisibleD = true;
-                                  });
-                                });
                               }
                               if (SoLuotChoi == 0) {
                                 timer?.cancel();
@@ -292,12 +320,21 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                     });
                               }
                             }
+                            if (SoCau < 25) {
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  chuyenCauHoi();
+                                  resetColors();
+                                });
+                              });
+                            }
                           },
                           child: Text(
                             dapanA,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                           ),
                           style: OutlinedButton.styleFrom(
+                              backgroundColor: optionsColor1[0],
                               side: BorderSide(color: Colors.white, width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
@@ -320,28 +357,15 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               return;
                             }
                             if (dapanB.toString() == _CauHoi[dapanDung - 1]) {
+                              optionsColor2[0] = Colors.green;
                               SoCau++;
                               SoDiem += 10;
-                              setState(() {
-                                setState(() {
-                                  _isVisibleA = true;
-                                  _isVisibleB = true;
-                                  _isVisibleC = true;
-                                  _isVisibleD = true;
-                                });
-                              });
+                              SoCauDung++;
                             } else {
                               if (SoLuotChoi > 0) {
+                                optionsColor2[0] = Colors.red;
                                 SoLuotChoi--;
                                 SoCau++;
-                                setState(() {
-                                  setState(() {
-                                    _isVisibleA = true;
-                                    _isVisibleB = true;
-                                    _isVisibleC = true;
-                                    _isVisibleD = true;
-                                  });
-                                });
                               }
                               if (SoLuotChoi == 0) {
                                 timer?.cancel();
@@ -373,12 +397,21 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                     });
                               }
                             }
+                            if (SoCau < 25) {
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  chuyenCauHoi();
+                                  resetColors();
+                                });
+                              });
+                            }
                           },
                           child: Text(
                             dapanB,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                           ),
                           style: OutlinedButton.styleFrom(
+                              backgroundColor: optionsColor2[0],
                               side: BorderSide(color: Colors.white, width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
@@ -401,28 +434,15 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               return;
                             }
                             if (dapanC.toString() == _CauHoi[dapanDung - 1]) {
+                              optionsColor3[0] = Colors.green;
                               SoCau++;
                               SoDiem += 10;
-                              setState(() {
-                                setState(() {
-                                  _isVisibleA = true;
-                                  _isVisibleB = true;
-                                  _isVisibleC = true;
-                                  _isVisibleD = true;
-                                });
-                              });
+                              SoCauDung++;
                             } else {
                               if (SoLuotChoi > 0) {
+                                optionsColor3[0] = Colors.red;
                                 SoLuotChoi--;
                                 SoCau++;
-                                setState(() {
-                                  setState(() {
-                                    _isVisibleA = true;
-                                    _isVisibleB = true;
-                                    _isVisibleC = true;
-                                    _isVisibleD = true;
-                                  });
-                                });
                               }
                               if (SoLuotChoi == 0) {
                                 timer?.cancel();
@@ -454,12 +474,21 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                     });
                               }
                             }
+                            if (SoCau < 25) {
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  chuyenCauHoi();
+                                  resetColors();
+                                });
+                              });
+                            }
                           },
                           child: Text(
                             dapanC,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                           ),
                           style: OutlinedButton.styleFrom(
+                              backgroundColor: optionsColor3[0],
                               side: BorderSide(color: Colors.white, width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
@@ -482,28 +511,15 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               return;
                             }
                             if (dapanD.toString() == _CauHoi[dapanDung - 1]) {
+                              optionsColor4[0] = Colors.green;
                               SoCau++;
                               SoDiem += 10;
-                              setState(() {
-                                setState(() {
-                                  _isVisibleA = true;
-                                  _isVisibleB = true;
-                                  _isVisibleC = true;
-                                  _isVisibleD = true;
-                                });
-                              });
+                              SoCauDung++;
                             } else {
                               if (SoLuotChoi > 0) {
+                                optionsColor4[0] = Colors.red;
                                 SoLuotChoi--;
                                 SoCau++;
-                                setState(() {
-                                  setState(() {
-                                    _isVisibleA = true;
-                                    _isVisibleB = true;
-                                    _isVisibleC = true;
-                                    _isVisibleD = true;
-                                  });
-                                });
                               }
                               if (SoLuotChoi == 0) {
                                 timer?.cancel();
@@ -535,12 +551,21 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                     });
                               }
                             }
+                            if (SoCau < 25) {
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  resetColors();
+                                  chuyenCauHoi();
+                                });
+                              });
+                            }
                           },
                           child: Text(
                             dapanD,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                           ),
                           style: OutlinedButton.styleFrom(
+                              backgroundColor: optionsColor4[0],
                               side: BorderSide(color: Colors.white, width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
