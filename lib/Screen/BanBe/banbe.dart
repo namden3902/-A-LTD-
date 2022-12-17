@@ -12,6 +12,7 @@ class BanBe extends StatefulWidget {
 
 class _BanBe extends State<BanBe> {
   final String? email;
+  final _selectedColor = Color(0xff1a73e8);
   _BanBe({Key? key, required this.email});
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,15 @@ class _BanBe extends State<BanBe> {
             'Bạn bè',
             textAlign: TextAlign.center,
           ),
+          backgroundColor: _selectedColor,
+          titleTextStyle: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
           bottom: TabBar(
+            unselectedLabelColor: Colors.black,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: Colors.black.withOpacity(0.2),
+            ),
             tabs: [
               Tab(
                 icon: Icon(Icons.people),

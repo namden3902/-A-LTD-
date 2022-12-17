@@ -39,6 +39,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   bool NguoiThan = false;
   bool NamMuoi = false;
   bool KhanGia = false;
+  bool Skip = false;
   bool _isVisibleA = true;
   bool _isVisibleB = true;
   bool _isVisibleC = true;
@@ -831,20 +832,40 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                       buildTimer(),
                       OutlinedButton(
                         onPressed: () {
-                          if (SoCau == 25) {
-                            final snackBar = SnackBar(
-                                content: Text('Đây đã là câu hỏi cuối cùng !'));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+                          if (Skip == false) {
+                            if (SoCau == 25) {
+                              final snackBar = SnackBar(
+                                  content:
+                                      Text('Đây đã là câu hỏi cuối cùng !'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else {
+                              SoCau = SoCau + 1;
+                              seconds = maxSeconds;
+                              setState(() {
+                                _isVisibleA = true;
+                                _isVisibleB = true;
+                                _isVisibleC = true;
+                                _isVisibleD = true;
+                              });
+                            }
                           } else {
-                            SoCau = SoCau + 1;
-                            seconds = maxSeconds;
-                            setState(() {
-                              _isVisibleA = true;
-                              _isVisibleB = true;
-                              _isVisibleC = true;
-                              _isVisibleD = true;
-                            });
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Thông báo'),
+                                    content: Text(
+                                        'Bạn đã sử dụng quyền trợ giúp này trong lượt chơi này'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Xin cảm ơn'))
+                                    ],
+                                  );
+                                });
                           }
                         },
                         child: Icon(
