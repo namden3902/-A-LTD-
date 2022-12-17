@@ -331,11 +331,11 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           },
                           child: Text(
                             dapanA,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.white),
                           ),
                           style: OutlinedButton.styleFrom(
-                              backgroundColor: optionsColor1[0],
-                              side: BorderSide(color: Colors.white, width: 3),
+                              side:
+                                  BorderSide(color: optionsColor1[0], width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8))),
@@ -408,11 +408,11 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           },
                           child: Text(
                             dapanB,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.white),
                           ),
                           style: OutlinedButton.styleFrom(
-                              backgroundColor: optionsColor2[0],
-                              side: BorderSide(color: Colors.white, width: 3),
+                              side:
+                                  BorderSide(color: optionsColor2[0], width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8))),
@@ -485,11 +485,11 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           },
                           child: Text(
                             dapanC,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.white),
                           ),
                           style: OutlinedButton.styleFrom(
-                              backgroundColor: optionsColor3[0],
-                              side: BorderSide(color: Colors.white, width: 3),
+                              side:
+                                  BorderSide(color: optionsColor3[0], width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8))),
@@ -562,11 +562,11 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                           },
                           child: Text(
                             dapanD,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.white),
                           ),
                           style: OutlinedButton.styleFrom(
-                              backgroundColor: optionsColor4[0],
-                              side: BorderSide(color: Colors.white, width: 3),
+                              side:
+                                  BorderSide(color: optionsColor4[0], width: 3),
                               fixedSize: Size(280, 40),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8))),
