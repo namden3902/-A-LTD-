@@ -281,7 +281,6 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                             }
                             if (dapanA.toString() == _CauHoi[dapanDung - 1]) {
                               optionsColor1[0] = Colors.green;
-                              SoCau++;
                               SoDiem += 10;
                               SoCauDung++;
                             } else {
@@ -321,10 +320,46 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               }
                             }
                             if (SoCau < 25) {
+                              SoCau++;
                               Future.delayed(const Duration(seconds: 1), () {
                                 setState(() {
                                   chuyenCauHoi();
                                   resetColors();
+                                });
+                              });
+                            } else if (SoCau == 25) {
+                              SoCau = 25;
+                              SoDiem = SoDiem;
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  resetColors();
+                                  timer?.cancel();
+                                  addHS();
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text('Kết thúc trò chơi'),
+                                          content: Text(
+                                              'Số điểm của bạn: ${SoDiem}'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ManHinhChinh(
+                                                              email: email
+                                                                  .toString()),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text('Màn hình chính'))
+                                          ],
+                                        );
+                                      });
                                 });
                               });
                             }
@@ -398,10 +433,46 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               }
                             }
                             if (SoCau < 25) {
+                              SoCau++;
                               Future.delayed(const Duration(seconds: 1), () {
                                 setState(() {
                                   chuyenCauHoi();
                                   resetColors();
+                                });
+                              });
+                            } else if (SoCau == 25) {
+                              SoCau = 25;
+                              SoDiem = SoDiem;
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  resetColors();
+                                  timer?.cancel();
+                                  addHS();
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text('Kết thúc trò chơi'),
+                                          content: Text(
+                                              'Số điểm của bạn: ${SoDiem}'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ManHinhChinh(
+                                                              email: email
+                                                                  .toString()),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text('Màn hình chính'))
+                                          ],
+                                        );
+                                      });
                                 });
                               });
                             }
@@ -475,10 +546,46 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               }
                             }
                             if (SoCau < 25) {
+                              SoCau++;
                               Future.delayed(const Duration(seconds: 1), () {
                                 setState(() {
                                   chuyenCauHoi();
                                   resetColors();
+                                });
+                              });
+                            } else if (SoCau == 25) {
+                              SoCau = 25;
+                              SoDiem = SoDiem;
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  resetColors();
+                                  timer?.cancel();
+                                  addHS();
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text('Kết thúc trò chơi'),
+                                          content: Text(
+                                              'Số điểm của bạn: ${SoDiem}'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ManHinhChinh(
+                                                              email: email
+                                                                  .toString()),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text('Màn hình chính'))
+                                          ],
+                                        );
+                                      });
                                 });
                               });
                             }
@@ -552,10 +659,46 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               }
                             }
                             if (SoCau < 25) {
+                              SoCau++;
+                              Future.delayed(const Duration(seconds: 1), () {
+                                setState(() {
+                                  chuyenCauHoi();
+                                  resetColors();
+                                });
+                              });
+                            } else if (SoCau == 25) {
+                              SoCau = 25;
+                              SoDiem = SoDiem;
                               Future.delayed(const Duration(seconds: 1), () {
                                 setState(() {
                                   resetColors();
-                                  chuyenCauHoi();
+                                  timer?.cancel();
+                                  addHS();
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text('Kết thúc trò chơi'),
+                                          content: Text(
+                                              'Số điểm của bạn: ${SoDiem}'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ManHinhChinh(
+                                                              email: email
+                                                                  .toString()),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text('Màn hình chính'))
+                                          ],
+                                        );
+                                      });
                                 });
                               });
                             }
