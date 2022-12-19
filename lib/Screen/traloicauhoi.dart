@@ -38,7 +38,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   int SoCau = 1,
       SoDiem = 0,
       SoCredit = 0,
-      SoLuotChoi = 1,
+      SoLuotChoi = 3,
       SoCauHoiCuaGoi = 25,
       SoCauDung = 0;
   String dapAn = '';
