@@ -38,7 +38,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   int SoCau = 1,
       SoDiem = 0,
       SoCredit = 0,
-      SoLuotChoi = 1,
+      SoLuotChoi = 3,
       SoCauHoiCuaGoi = 25,
       SoCauDung = 0;
   bool NguoiThan = false;
@@ -91,6 +91,103 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     });
   }
 
+  void cau25Dung() {
+    SoCau = 25;
+    timer?.cancel();
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {});
+    });
+    addHS();
+    Future.delayed(const Duration(seconds: 3), () {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Kết thúc trò chơi'),
+              content: Text('Số điểm của bạn: ${SoDiem}'),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ManHinhChinh(email: email.toString()),
+                        ),
+                      );
+                    },
+                    child: Text('Màn hình chính'))
+              ],
+            );
+          });
+    });
+  }
+
+  void cau25Sai() {
+    SoCau = 25;
+    SoLuotChoi--;
+    timer?.cancel();
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {});
+    });
+    addHS();
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Kết thúc trò chơi'),
+            content: Text('Số điểm của bạn: ${SoDiem}'),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ManHinhChinh(email: email.toString()),
+                      ),
+                    );
+                  },
+                  child: Text('Màn hình chính'))
+            ],
+          );
+        });
+  }
+
+  void luotChoi() {
+    timer?.cancel();
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {});
+    });
+    addHS();
+    Future.delayed(const Duration(seconds: 3), () {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Kết thúc trò chơi'),
+              content: Text('Số điểm của bạn: ${SoDiem}'),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ManHinhChinh(email: email.toString()),
+                        ),
+                      );
+                    },
+                    child: Text('Màn hình chính'))
+              ],
+            );
+          });
+    });
+  }
+
   //Hàm khởi tạo
   @override
   void initState() {
@@ -100,6 +197,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
 
   void chuyenCauHoi() {
     setState(() {
+      seconds = 15;
       _isVisibleA = true;
       _isVisibleB = true;
       _isVisibleC = true;
@@ -283,85 +381,43 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               optionsColor1[0] = Colors.green;
                               SoDiem += 10;
                               SoCauDung++;
-                            } else {
-                              if (SoLuotChoi > 0) {
-                                optionsColor1[0] = Colors.red;
-                                SoLuotChoi--;
+                              if (SoCau == 25) {
+                                cau25Dung();
+                                return;
+                              }
+                              if (SoCau < 25) {
                                 SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
+                                });
+                                return;
+                              }
+                            } else {
+                              optionsColor1[0] = Colors.red;
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
                               }
                               if (SoLuotChoi == 0) {
-                                timer?.cancel();
-                                addHS();
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text('Kết thúc trò chơi'),
-                                        content:
-                                            Text('Số điểm của bạn: ${SoDiem}'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ManHinhChinh(
-                                                            email: email
-                                                                .toString()),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text('Màn hình chính'))
-                                        ],
-                                      );
-                                    });
+                                luotChoi();
+                                return;
                               }
-                            }
-                            if (SoCau < 25) {
-                              SoCau++;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  chuyenCauHoi();
-                                  resetColors();
+                              if (SoCau < 25) {
+                                SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
                                 });
-                              });
-                            } else if (SoCau == 25) {
-                              SoCau = 25;
-                              SoDiem = SoDiem;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  resetColors();
-                                  timer?.cancel();
-                                  addHS();
-                                  showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('Kết thúc trò chơi'),
-                                          content: Text(
-                                              'Số điểm của bạn: ${SoDiem}'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ManHinhChinh(
-                                                              email: email
-                                                                  .toString()),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Text('Màn hình chính'))
-                                          ],
-                                        );
-                                      });
-                                });
-                              });
+                                return;
+                              }
+                              if (SoCau == 25) {
+                                cau25Sai();
+                                return;
+                              }
                             }
                           },
                           child: Text(
@@ -393,88 +449,45 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                             }
                             if (dapanB.toString() == _CauHoi[dapanDung - 1]) {
                               optionsColor2[0] = Colors.green;
-                              SoCau++;
                               SoDiem += 10;
                               SoCauDung++;
-                            } else {
-                              if (SoLuotChoi > 0) {
-                                optionsColor2[0] = Colors.red;
-                                SoLuotChoi--;
+                              if (SoCau == 25) {
+                                cau25Dung();
+                                return;
+                              }
+                              if (SoCau < 25) {
                                 SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
+                                });
+                                return;
+                              }
+                            } else {
+                              optionsColor2[0] = Colors.red;
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
                               }
                               if (SoLuotChoi == 0) {
-                                timer?.cancel();
-                                addHS();
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text('Kết thúc trò chơi'),
-                                        content:
-                                            Text('Số điểm của bạn: ${SoDiem}'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ManHinhChinh(
-                                                            email: email
-                                                                .toString()),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text('Màn hình chính'))
-                                        ],
-                                      );
-                                    });
+                                luotChoi();
+                                return;
                               }
-                            }
-                            if (SoCau < 25) {
-                              SoCau++;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  chuyenCauHoi();
-                                  resetColors();
+                              if (SoCau < 25) {
+                                SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
                                 });
-                              });
-                            } else if (SoCau == 25) {
-                              SoCau = 25;
-                              SoDiem = SoDiem;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  resetColors();
-                                  timer?.cancel();
-                                  addHS();
-                                  showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('Kết thúc trò chơi'),
-                                          content: Text(
-                                              'Số điểm của bạn: ${SoDiem}'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ManHinhChinh(
-                                                              email: email
-                                                                  .toString()),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Text('Màn hình chính'))
-                                          ],
-                                        );
-                                      });
-                                });
-                              });
+                                return;
+                              }
+                              if (SoCau == 25) {
+                                cau25Sai();
+                                return;
+                              }
                             }
                           },
                           child: Text(
@@ -506,88 +519,45 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                             }
                             if (dapanC.toString() == _CauHoi[dapanDung - 1]) {
                               optionsColor3[0] = Colors.green;
-                              SoCau++;
                               SoDiem += 10;
                               SoCauDung++;
-                            } else {
-                              if (SoLuotChoi > 0) {
-                                optionsColor3[0] = Colors.red;
-                                SoLuotChoi--;
+                              if (SoCau == 25) {
+                                cau25Dung();
+                                return;
+                              }
+                              if (SoCau < 25) {
                                 SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
+                                });
+                                return;
+                              }
+                            } else {
+                              optionsColor3[0] = Colors.red;
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
                               }
                               if (SoLuotChoi == 0) {
-                                timer?.cancel();
-                                addHS();
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text('Kết thúc trò chơi'),
-                                        content:
-                                            Text('Số điểm của bạn: ${SoDiem}'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ManHinhChinh(
-                                                            email: email
-                                                                .toString()),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text('Màn hình chính'))
-                                        ],
-                                      );
-                                    });
+                                luotChoi();
+                                return;
                               }
-                            }
-                            if (SoCau < 25) {
-                              SoCau++;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  chuyenCauHoi();
-                                  resetColors();
+                              if (SoCau < 25) {
+                                SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
                                 });
-                              });
-                            } else if (SoCau == 25) {
-                              SoCau = 25;
-                              SoDiem = SoDiem;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  resetColors();
-                                  timer?.cancel();
-                                  addHS();
-                                  showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('Kết thúc trò chơi'),
-                                          content: Text(
-                                              'Số điểm của bạn: ${SoDiem}'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ManHinhChinh(
-                                                              email: email
-                                                                  .toString()),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Text('Màn hình chính'))
-                                          ],
-                                        );
-                                      });
-                                });
-                              });
+                                return;
+                              }
+                              if (SoCau == 25) {
+                                cau25Sai();
+                                return;
+                              }
                             }
                           },
                           child: Text(
@@ -619,88 +589,45 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                             }
                             if (dapanD.toString() == _CauHoi[dapanDung - 1]) {
                               optionsColor4[0] = Colors.green;
-                              SoCau++;
                               SoDiem += 10;
                               SoCauDung++;
-                            } else {
-                              if (SoLuotChoi > 0) {
-                                optionsColor4[0] = Colors.red;
-                                SoLuotChoi--;
+                              if (SoCau == 25) {
+                                cau25Dung();
+                                return;
+                              }
+                              if (SoCau < 25) {
                                 SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
+                                });
+                                return;
+                              }
+                            } else {
+                              optionsColor4[0] = Colors.red;
+                              if (SoLuotChoi > 0) {
+                                SoLuotChoi--;
                               }
                               if (SoLuotChoi == 0) {
-                                timer?.cancel();
-                                addHS();
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text('Kết thúc trò chơi'),
-                                        content:
-                                            Text('Số điểm của bạn: ${SoDiem}'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ManHinhChinh(
-                                                            email: email
-                                                                .toString()),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text('Màn hình chính'))
-                                        ],
-                                      );
-                                    });
+                                luotChoi();
+                                return;
                               }
-                            }
-                            if (SoCau < 25) {
-                              SoCau++;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  chuyenCauHoi();
-                                  resetColors();
+                              if (SoCau < 25) {
+                                SoCau++;
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  setState(() {
+                                    chuyenCauHoi();
+                                    resetColors();
+                                  });
                                 });
-                              });
-                            } else if (SoCau == 25) {
-                              SoCau = 25;
-                              SoDiem = SoDiem;
-                              Future.delayed(const Duration(seconds: 1), () {
-                                setState(() {
-                                  resetColors();
-                                  timer?.cancel();
-                                  addHS();
-                                  showDialog(
-                                      barrierDismissible: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('Kết thúc trò chơi'),
-                                          content: Text(
-                                              'Số điểm của bạn: ${SoDiem}'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ManHinhChinh(
-                                                              email: email
-                                                                  .toString()),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Text('Màn hình chính'))
-                                          ],
-                                        );
-                                      });
-                                });
-                              });
+                                return;
+                              }
+                              if (SoCau == 25) {
+                                cau25Sai();
+                                return;
+                              }
                             }
                           },
                           child: Text(
