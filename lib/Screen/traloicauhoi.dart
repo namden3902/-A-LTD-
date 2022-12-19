@@ -38,9 +38,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   int SoCau = 1,
       SoDiem = 0,
       SoCredit = 0,
-      SoLuotChoi = 3,
+      SoLuotChoi = 1,
       SoCauHoiCuaGoi = 25,
       SoCauDung = 0;
+  String dapAn = '';
   bool NguoiThan = false;
   bool NamMuoi = false;
   bool KhanGia = false;
@@ -78,6 +79,12 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
       Colors.white,
     ];
   }
+
+  //Chia % khán giả
+  static int c1 = Random().nextInt(60) + 15;
+  static int c2 = Random().nextInt((100 - c1) + 1);
+  static int c3 = Random().nextInt((100 - c1 - c2) + 1);
+  static int c4 = 100 - c1 - c2 - c3;
 
   final Stream<QuerySnapshot> cauhoi =
       FirebaseFirestore.instance.collection('cauhoi').snapshots();
@@ -670,118 +677,38 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               } else {
                                 KhanGia = true;
                                 if (dapanDung == 1) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              'Danh sách đáp án bình chọn'),
-                                          content: Container(
-                                              child: SizedBox(
-                                            height: 90,
-                                            child: Column(
-                                              children: [
-                                                Text('A: 30%'),
-                                                Text('B: 26%'),
-                                                Text('C: 24%'),
-                                                Text('A: 20%'),
-                                              ],
-                                            ),
-                                          )),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('Xin cảm ơn'))
-                                          ],
-                                        );
-                                      });
+                                  dapAn =
+                                      "A : ${c1}%\nB : ${c2}%\nC : ${c3}%\nD : ${c4}%";
                                 } else if (dapanDung == 2) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              'Danh sách đáp án bình chọn'),
-                                          content: Container(
-                                              child: SizedBox(
-                                            height: 90,
-                                            child: Column(
-                                              children: [
-                                                Text('A: 15%'),
-                                                Text('B: 45%'),
-                                                Text('C: 18%'),
-                                                Text('A: 22%'),
-                                              ],
-                                            ),
-                                          )),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('Xin cảm ơn'))
-                                          ],
-                                        );
-                                      });
+                                  dapAn =
+                                      "A : ${c3}%\nB : ${c1}%\nC : ${c2}%\nD : ${c4}%";
                                 } else if (dapanDung == 3) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              'Danh sách đáp án bình chọn'),
-                                          content: Container(
-                                              child: SizedBox(
-                                            height: 90,
-                                            child: Column(
-                                              children: [
-                                                Text('A: 10%'),
-                                                Text('B: 16%'),
-                                                Text('C: 60%'),
-                                                Text('A: 14%'),
-                                              ],
-                                            ),
-                                          )),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('Xin cảm ơn'))
-                                          ],
-                                        );
-                                      });
+                                  dapAn =
+                                      "A : ${c4}%\nB : ${c3}%\nC : ${c1}%\nD : ${c2}%";
                                 } else if (dapanDung == 4) {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              'Danh sách đáp án bình chọn'),
-                                          content: Container(
-                                              child: SizedBox(
-                                            height: 90,
-                                            child: Column(
-                                              children: [
-                                                Text('A: 15%'),
-                                                Text('B: 25%'),
-                                                Text('C: 20%'),
-                                                Text('A: 40%'),
-                                              ],
-                                            ),
-                                          )),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('Xin cảm ơn'))
-                                          ],
-                                        );
-                                      });
+                                  dapAn =
+                                      "A : ${c2}%\nB : ${c4}%\nC : ${c3}%\nD : ${c1}%";
                                 }
+                                setState(() {});
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title:
+                                            const Text('Trợ giúp từ khán giả'),
+                                        content: Text(
+                                          '$dapAn',
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('Ok'))
+                                        ],
+                                      );
+                                    });
                               }
                             },
                             child: Icon(
