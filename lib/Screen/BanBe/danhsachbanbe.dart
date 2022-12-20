@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doan_laptrinhdidong/Object/danhsachbb_object.dart';
 import 'package:doan_laptrinhdidong/Provider/danhsachbb_provider.dart';
+import 'package:doan_laptrinhdidong/Screen/BanBe/thongtinbanbe.dart';
 import 'package:flutter/material.dart';
 
 class DanhSachBB extends StatefulWidget {
@@ -89,7 +90,22 @@ class _DanhSachBB extends State<DanhSachBB> {
                                 setState(() {});
                                 Navigator.pop(context);
                               },
-                            ))
+                            )),
+                            PopupMenuItem(
+                                child: ListTile(
+                              leading: Icon(Icons.perm_device_information),
+                              title: Text('Xem thông tin'),
+                              onTap: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ThongTinBanBe(
+                                          email: DanhSach[index]
+                                              .email2
+                                              .toString())),
+                                );
+                              },
+                            )),
                           ],
                         ));
                   })),
