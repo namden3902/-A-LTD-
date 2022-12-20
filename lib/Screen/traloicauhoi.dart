@@ -204,7 +204,8 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
 
   void chuyenCauHoi() {
     setState(() {
-      seconds = 15;
+      resetColors();
+      seconds = 30;
       _isVisibleA = true;
       _isVisibleB = true;
       _isVisibleC = true;
@@ -393,11 +394,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -412,11 +412,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -463,11 +462,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -482,11 +480,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -533,11 +530,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -552,11 +548,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -603,11 +598,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -622,11 +616,10 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                 return;
                               }
                               if (SoCau < 25) {
-                                SoCau++;
                                 Future.delayed(const Duration(seconds: 1), () {
                                   setState(() {
+                                    SoCau++;
                                     chuyenCauHoi();
-                                    resetColors();
                                   });
                                 });
                                 return;
@@ -675,6 +668,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                       );
                                     });
                               } else {
+                                timer?.cancel();
                                 KhanGia = true;
                                 if (dapanDung == 1) {
                                   dapAn =
@@ -704,6 +698,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                           TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
+                                                startTimer();
                                               },
                                               child: Text('Ok'))
                                         ],
@@ -803,6 +798,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               }
                               if (NguoiThan == false) {
                                 NguoiThan = true;
+                                timer?.cancel();
                                 showDialog(
                                     context: context,
                                     builder: (context) {
@@ -822,6 +818,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                                           TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
+                                                startTimer();
                                               },
                                               child: Text(
                                                 'Xin cảm ơn',
@@ -872,6 +869,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
                               });
                             }
                           } else {
+                            Skip = false;
                             showDialog(
                                 context: context,
                                 builder: (context) {

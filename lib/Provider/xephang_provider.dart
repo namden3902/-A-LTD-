@@ -10,7 +10,7 @@ class XepHangProvider {
     final snapshot = await FirebaseFirestore.instance
         .collection("lishsuall")
         .orderBy("soDiem", descending: true)
-        .limit(5)
+        .limit(10)
         .get();
     LichSu = snapshot.docs
         .map((json) =>
