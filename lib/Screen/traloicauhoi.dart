@@ -248,7 +248,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
     String ndcauhoi = "", dapanA = "", dapanB = "", dapanC = "", dapanD = "";
 
     return FutureBuilder<List<CauHoiObject>>(
-      future: CauHoiProvider.get(id, 1, SoCau),
+      future: CauHoiProvider.get(id, idGoi, SoCau),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<CauHoiObject> CauHoi = snapshot.data!;
