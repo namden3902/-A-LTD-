@@ -4,10 +4,16 @@ import 'package:doan_laptrinhdidong/Provider/thongtintaikhoan_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:email_validator/email_validator.dart';
 
 class DangKy extends StatefulWidget {
   @override
   State<DangKy> createState() => _DangKy();
+}
+
+bool ktraEmail(String email) {
+  bool isvalid = EmailValidator.validate(email);
+  return isvalid;
 }
 
 class _DangKy extends State<DangKy> {
@@ -238,7 +244,7 @@ class _DangKy extends State<DangKy> {
                           content: Text('Bạn chưa nhập địa chỉ email'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       return;
-                    } else if ((txtEmail.text).indexOf("@") == -1) {
+                    } else if (ktraEmail(txtEmail.text) == false) {
                       final snackBar =
                           SnackBar(content: Text('Email chưa đúng định dạng'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);

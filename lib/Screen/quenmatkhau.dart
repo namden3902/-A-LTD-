@@ -2,12 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 import '../Object/thongtintaikhoan_object.dart';
 
 class QuenMatKhau extends StatefulWidget {
   @override
   State<QuenMatKhau> createState() => _Quenmatkhau();
+}
+
+bool ktraEmail(String email) {
+  bool isvalid = EmailValidator.validate(email);
+  return isvalid;
 }
 
 class _Quenmatkhau extends State<QuenMatKhau> {
@@ -75,12 +81,6 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                 SizedBox(
                   height: 10,
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 40,
-                ),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.white, width: 3),
@@ -92,7 +92,7 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                           content: Text('Bạn chưa nhập địa chỉ email'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       return;
-                    } else if ((txtEmail.text).indexOf("@") == -1) {
+                    } else if (ktraEmail(txtEmail.text) == false) {
                       final snackBar =
                           SnackBar(content: Text('Email chưa đúng định dạng'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -115,6 +115,32 @@ class _Quenmatkhau extends State<QuenMatKhau> {
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Thông báo'),
+                              content: Text(
+                                  'Vui lòng đặt mật khẩu tối thiểu là 8 và tối đa là 16 ký tự !'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Xin cảm ơn'))
+                              ],
+                            );
+                          });
+                    },
+                    child: Text(
+                      'Cảnh báo',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )),
               ],
             ),
           ),

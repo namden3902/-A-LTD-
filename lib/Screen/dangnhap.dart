@@ -5,10 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 
 class DangNhap extends StatefulWidget {
   @override
   State<DangNhap> createState() => _DangNhap();
+}
+
+bool ktraEmail(String email) {
+  bool isvalid = EmailValidator.validate(email);
+  return isvalid;
 }
 
 class _DangNhap extends State<DangNhap> {
@@ -111,15 +117,22 @@ class _DangNhap extends State<DangNhap> {
                       }
                       //Validate của kiểm thử phần mmềm
                       String temp = txtEmail.toString();
-                      if (temp.indexOf("@") == -1) {
+                      if (ktraEmail(txtEmail.text) == false) {
                         final snackBar = SnackBar(
                             content: Text(
                                 'Bạn chưa nhập đúng định dạng của một email !'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        return;
                       }
                       if (txtPass.text == "") {
                         final snackBar =
                             SnackBar(content: Text('Bạn chưa nhập mật khẩu !'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        return;
+                      }
+                      if (txtPass.text.length < 6 || txtPass.text.length > 18) {
+                        final snackBar = SnackBar(
+                            content: Text('Bạn đã vi phạm độ dài mật khẩu ! '));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         return;
                       }

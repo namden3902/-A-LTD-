@@ -89,7 +89,7 @@ class _TraLoiCauHoi extends State<TraLoiCauHoi> {
   final Stream<QuerySnapshot> cauhoi =
       FirebaseFirestore.instance.collection('cauhoi').snapshots();
   //Đồng hồ
-  static const maxSeconds = 15;
+  static const maxSeconds = 30;
   int seconds = maxSeconds;
   Timer? timer;
   void startTimer() {
