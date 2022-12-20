@@ -19,4 +19,17 @@ class CauHoiProvider {
         .toList();
     return CauHoi;
   }
+
+  static Future<List<CauHoiObject>> getfull(int idLinhVuc) async {
+    List<CauHoiObject> CauHoi = [];
+    final snapshot = await FirebaseFirestore.instance
+        .collection('cauhoi')
+        .where('idLinhVuc', isEqualTo: idLinhVuc)
+        .get();
+    CauHoi = snapshot.docs
+        .map((json) =>
+            CauHoiObject.fromJson(json.data() as Map<String, dynamic>))
+        .toList();
+    return CauHoi;
+  }
 }

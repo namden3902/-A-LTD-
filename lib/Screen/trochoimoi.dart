@@ -1,3 +1,6 @@
+import 'package:doan_laptrinhdidong/Object/cauhoi_object.dart';
+import 'package:doan_laptrinhdidong/Provider/cauhoi_provider.dart';
+
 import 'traloicauhoi.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +15,8 @@ class _TroChoiMoi extends State<TroChoiMoi> {
   late String? TenLinhVuc;
   final String? email;
   _TroChoiMoi({this.TenLinhVuc, this.email});
+  List<CauHoiObject> cauHoi = [];
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -61,16 +66,27 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                       height: 20,
                     ),
                     OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        cauHoi = [];
                         TenLinhVuc = 'Lịch sử - Địa lí Việt Nam';
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TraLoiCauHoi(
-                                      TenLinhVuc: TenLinhVuc,
-                                      idLinhVuc: 1,
-                                      email: email,
-                                    )));
+                        final data = await CauHoiProvider.getfull(1);
+                        cauHoi = data;
+                        if (cauHoi.length != 0) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TraLoiCauHoi(
+                                        TenLinhVuc: TenLinhVuc,
+                                        idLinhVuc: 1,
+                                        email: email,
+                                      )));
+                          return;
+                        } else {
+                          final snackBar = SnackBar(
+                              content: Text('Lĩnh vực hiện chưa có dữ liệu '));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          return;
+                        }
                       },
                       child: const Text(
                         'Lịch sử - Địa lí Việt Nam',
@@ -86,16 +102,26 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                       height: 10,
                     ),
                     OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         TenLinhVuc = 'Game';
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TraLoiCauHoi(
-                                      TenLinhVuc: TenLinhVuc,
-                                      idLinhVuc: 2,
-                                      email: email,
-                                    )));
+                        final data = await CauHoiProvider.getfull(2);
+                        cauHoi = data;
+                        if (cauHoi.length != 0) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TraLoiCauHoi(
+                                        TenLinhVuc: TenLinhVuc,
+                                        idLinhVuc: 2,
+                                        email: email,
+                                      )));
+                          return;
+                        } else {
+                          final snackBar = SnackBar(
+                              content: Text('Lĩnh vực hiện chưa có dữ liệu '));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          return;
+                        }
                       },
                       child: const Text(
                         'Game',
@@ -111,16 +137,26 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                       height: 10,
                     ),
                     OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         TenLinhVuc = 'Hại não';
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TraLoiCauHoi(
-                                      TenLinhVuc: TenLinhVuc,
-                                      idLinhVuc: 3,
-                                      email: email,
-                                    )));
+                        final data = await CauHoiProvider.getfull(3);
+                        cauHoi = data;
+                        if (cauHoi.length != 0) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TraLoiCauHoi(
+                                        TenLinhVuc: TenLinhVuc,
+                                        idLinhVuc: 3,
+                                        email: email,
+                                      )));
+                          return;
+                        } else {
+                          final snackBar = SnackBar(
+                              content: Text('Lĩnh vực hiện chưa có dữ liệu '));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          return;
+                        }
                       },
                       child: const Text(
                         'Hại não',
@@ -136,15 +172,26 @@ class _TroChoiMoi extends State<TroChoiMoi> {
                       height: 10,
                     ),
                     OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         TenLinhVuc = 'Bóng đá';
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TraLoiCauHoi(
-                                      idLinhVuc: 4,
-                                      email: email,
-                                    )));
+                        final data = await CauHoiProvider.getfull(4);
+                        cauHoi = data;
+                        if (cauHoi.length != 0) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TraLoiCauHoi(
+                                        TenLinhVuc: TenLinhVuc,
+                                        idLinhVuc: 4,
+                                        email: email,
+                                      )));
+                          return;
+                        } else {
+                          final snackBar = SnackBar(
+                              content: Text('Lĩnh vực hiện chưa có dữ liệu '));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          return;
+                        }
                       },
                       child: const Text(
                         'Bóng đá',
