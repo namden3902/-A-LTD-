@@ -109,16 +109,16 @@ class _DanhSach extends State<DanhSach> {
                                   }
                                 }
                                 for (int i = 0; i < dsloimoiTemp.length; i++) {
-                                  if (dsloimoiTemp[index].emailNM ==
-                                          DanhSach[index].email &&
-                                      dsloimoiTemp[index].emailNN == email) {
+                                  if (dsloimoiTemp[index].emailNM == email &&
+                                      dsloimoiTemp[index].emailNN ==
+                                          DanhSach[index].email.toString()) {
                                     dieuKien2 = false;
                                   }
                                 }
                                 for (int i = 0; i < dsloimoiTemp2.length; i++) {
                                   if (dsloimoiTemp2[index].emailNN == email &&
                                       dsloimoiTemp2[index].emailNM ==
-                                          DanhSach[index].email) {
+                                          DanhSach[index].email.toString()) {
                                     dieuKien3 = false;
                                   }
                                 }
@@ -151,6 +151,10 @@ class _DanhSach extends State<DanhSach> {
                                 }
                                 themLoiMoi(email.toString(),
                                     DanhSach[index].email.toString());
+                                final snackbar = SnackBar(
+                                    content: Text('Thêm lời mời thành công !'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackbar);
                                 Navigator.pop(context);
                               },
                             ))
